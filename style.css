@@ -6,8 +6,7 @@
 }
 
 /* 
-  CSS Variables for Light and Dark Modes
-  Light Theme Variables (Default)
+  Light Theme (Default) Variables
 */
 :root {
   --primary-color: #4A90E2;       /* Soft Blue */
@@ -19,31 +18,28 @@
   --link-color: var(--primary-color);
   --hover-color: var(--accent-color);
   --header-background: #4A90E2;   /* Header background */
-  --header-text-color: #FFFFFF;    /* Header text color */
+  --header-text-color: #FFFFFF;   /* Header text color */
 }
 
 /* 
-  Dark Theme Variables
-  Inspired by GitHub's color scheme for better contrast
+  Dark Theme
 */
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-color: #58A6FF;      /* Bright Blue */
-    --secondary-color: #7EE787;    /* Green accent */
-    --accent-color: #F78166;       /* Warm accent */
-    --background-color: #0D1117;   /* Dark background */
-    --text-color: #C9D1D9;         /* Light gray text */
-    --card-background: #161B22;    /* Card background */
-    --link-color: #58A6FF;         /* Matches primary color */
-    --hover-color: #79C0FF;        /* Lighter blue for hovers */
-    --header-background: #0D1117;   /* Darker header background */
-    --header-text-color: #58A6FF;    /* Header text color in dark mode */
+    --primary-color: #58A6FF;      
+    --secondary-color: #7EE787;    
+    --accent-color: #F78166;       
+    --background-color: #0D1117;   
+    --text-color: #C9D1D9;         
+    --card-background: #161B22;    
+    --link-color: #58A6FF;         
+    --hover-color: #79C0FF;        
+    --header-background: #0D1117;  
+    --header-text-color: #58A6FF;  
   }
 }
 
-/* 
-  @font-face Declarations for Local Roboto Fonts 
-*/
+/* Roboto Fonts */
 @font-face {
   font-family: 'Roboto';
   src: url('Roboto-Regular.ttf') format('truetype');
@@ -58,7 +54,7 @@
   font-style: normal;
 }
 
-/* Body and Basic Typography */
+/* Body */
 body {
   font-family: 'Roboto', Arial, sans-serif;
   font-size: 16px;
@@ -74,44 +70,48 @@ body {
   margin: 0 auto;
 }
 
-/* Navigation Bar */
+/* Navigation */
 nav {
   background-color: var(--header-background);
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Nav container: flex row on desktop */
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+/* Logo */
 .logo h1 {
-  /* Updated to use a specific color variable */
   color: var(--header-text-color);
   font-size: 1.5rem;
   letter-spacing: 1px;
 }
 
-/* Colored <h1> Element */
+/* Main Header styling (colored text) */
 .main-header {
-  /* Use primary color in light mode and link color in dark mode */
   color: var(--primary-color);
   transition: color 0.3s ease;
 }
 
-/* Update color in dark mode */
 @media (prefers-color-scheme: dark) {
   .main-header {
     color: var(--link-color);
   }
 }
 
+/* Nav links (Desktop) */
+.nav-links {
+  display: flex; /* default: horizontal menu on larger screens */
+  gap: 1.5rem;
+}
+
 .nav-links a {
   color: #FFFFFF;
   text-decoration: none;
-  margin-left: 1.5rem;
   font-size: 1rem;
   transition: color 0.3s ease;
 }
@@ -120,7 +120,7 @@ nav {
   color: var(--hover-color);
 }
 
-/* View CV Button Styles */
+/* View CV Button in Nav */
 .nav-links a.view-cv {
   background-color: var(--secondary-color);
   color: #333333;
@@ -134,13 +134,14 @@ nav {
   background-color: var(--hover-color);
 }
 
-/* Navigation Toggle (Hamburger) */
+/* Hidden Checkbox */
 .nav-toggle {
   display: none;
 }
 
+/* Hamburger Label */
 .nav-toggle-label {
-  display: none;
+  display: none; /* hidden on desktop */
   cursor: pointer;
 }
 
@@ -170,13 +171,15 @@ nav {
   top: 8px;
 }
 
-/* Show Hamburger on Mobile */
+/* Mobile Styles */
 @media (max-width: 768px) {
+  /* Stack the nav items vertically */
   .nav-links {
-    display: none;
+    display: none; /* hidden by default on mobile */
     width: 100%;
     background-color: var(--header-background);
     flex-direction: column;
+    gap: 0; /* remove gap so we can show border lines */
   }
 
   .nav-links a {
@@ -185,11 +188,12 @@ nav {
     border-top: 1px solid #FFFFFF;
   }
 
+  /* Show the hamburger on mobile */
   .nav-toggle-label {
     display: block;
   }
 
-  /* Toggle Navigation */
+  /* When checkbox is checked, show the nav menu */
   #nav-toggle:checked ~ .nav-links {
     display: flex;
   }
@@ -240,9 +244,9 @@ nav {
 .profile-pic {
   width: 150px;
   height: 150px;
-  border-radius: 50%; /* Circle */
-  object-fit: cover; /* Maintain aspect ratio and cover the container */
-  border: 3px solid #FFFFFF; /* White border */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #FFFFFF;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   margin: 0 auto 1.5rem auto;
   display: block;
@@ -256,7 +260,7 @@ nav {
 /* Card-like Blocks */
 .card {
   background-color: var(--card-background);
-  border-radius: 12px; /* Softer corners */
+  border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin-bottom: 2rem;
@@ -278,7 +282,7 @@ nav {
   padding-bottom: 0.5rem;
 }
 
-/* Job Titles */
+/* Jobs */
 .job h4 {
   font-size: 1.2rem;
   color: var(--text-color);
@@ -306,15 +310,14 @@ ul li {
 .note {
   border-left: 5px solid var(--secondary-color);
   padding-left: 1.5rem;
-  background-color: #F9FBFD; /* Light background for highlight card in light mode */
+  background-color: #F9FBFD; /* Light highlight for note in light mode */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Dark Mode Adjustments for Note / About Section */
 @media (prefers-color-scheme: dark) {
   .note {
-    background-color: #1F2937; /* Darker background for highlight card */
-    color: #C9D1D9; /* Light gray text */
+    background-color: #1F2937;
+    color: #C9D1D9;
   }
 
   .note a {
@@ -345,30 +348,11 @@ a:hover {
   color: var(--hover-color);
 }
 
-/* Responsive Image Adjustments */
+/* Responsive Adjustments */
 @media (max-width: 600px) {
   .profile-pic {
     width: 120px;
     height: 120px;
-  }
-}
-
-/* Responsive Design */
-@media (max-width: 600px) {
-  .nav-container {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .nav-links {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  .nav-links a {
-    margin: 0.5rem 0;
   }
 
   .hero h2 {

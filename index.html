@@ -6,10 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- Meta Description for SEO -->
   <meta name="description" content="Kaan Aldemir's professional portfolio. Explore my work experience, projects, skills, and contact information.">
-  
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="style.css" />
-  
+
   <!-- Structured Data for SEO -->
   <script type="application/ld+json">
   {
@@ -17,7 +14,7 @@
     "@type": "Person",
     "name": "Kaan Aldemir",
     "jobTitle": "Computer Engineer",
-    "url": "https://kaanaldemir.duckdns.org/mycv/",
+    "url": "https://kaanaldemir.com/",
     "sameAs": [
       "https://linkedin.com/in/kaan-aldemir",
       "https://github.com/kaanaldemir"
@@ -32,21 +29,350 @@
     }
   }
   </script>
+
+  <!-- Embedded CSS with the vertical-centering fix -->
+  <style>
+    /* Global Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Light Theme (Default) */
+    :root {
+      --primary-color: #4A90E2;      
+      --secondary-color: #50E3C2;    
+      --accent-color: #F5A623;       
+      --background-color: #F0F4F8;   
+      --text-color: #333333;         
+      --card-background: #FFFFFF;    
+      --link-color: var(--primary-color);
+      --hover-color: var(--accent-color);
+      --header-background: #4A90E2;  
+      --header-text-color: #FFFFFF;  
+    }
+
+    /* Dark Theme */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary-color: #58A6FF;
+        --secondary-color: #7EE787;
+        --accent-color: #F78166;
+        --background-color: #0D1117;
+        --text-color: #C9D1D9;
+        --card-background: #161B22;
+        --link-color: #58A6FF;
+        --hover-color: #79C0FF;
+        --header-background: #0D1117;
+        --header-text-color: #58A6FF;
+      }
+    }
+
+    /* Body */
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    /* Container */
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: var(--header-background);
+      /* No padding here to prevent vertical offset issues */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem; /* Moved padding here */
+    }
+
+    /* Logo */
+    .logo h1 {
+      color: var(--header-text-color);
+      font-size: 1.5rem;
+      letter-spacing: 1px;
+      margin: 0; /* ensure no extra margin */
+    }
+
+    /* Main header text (colored) */
+    .main-header {
+      color: var(--primary-color);
+      transition: color 0.3s ease;
+    }
+    @media (prefers-color-scheme: dark) {
+      .main-header {
+        color: var(--link-color);
+      }
+    }
+
+    /* Navigation Links (Desktop) */
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center; /* keep links vertically centered */
+    }
+    .nav-links a {
+      color: #FFFFFF;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover {
+      color: var(--hover-color);
+    }
+
+    /* "View CV" button style in nav */
+    .nav-links a.view-cv {
+      background-color: var(--secondary-color);
+      color: #333333;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .nav-links a.view-cv:hover {
+      background-color: var(--hover-color);
+    }
+
+    /* The hidden checkbox for mobile nav toggle */
+    .nav-toggle {
+      display: none;
+    }
+
+    /* Hamburger label (hidden on desktop by default) */
+    .nav-toggle-label {
+      display: none;
+      cursor: pointer;
+    }
+    .nav-toggle-label span,
+    .nav-toggle-label span::before,
+    .nav-toggle-label span::after {
+      display: block;
+      background-color: #FFFFFF;
+      height: 3px;
+      width: 25px;
+      border-radius: 2px;
+      position: relative;
+      transition: all 0.3s ease-in-out;
+    }
+    .nav-toggle-label span::before,
+    .nav-toggle-label span::after {
+      content: "";
+      position: absolute;
+    }
+    .nav-toggle-label span::before {
+      top: -8px;
+    }
+    .nav-toggle-label span::after {
+      top: 8px;
+    }
+
+    /* Mobile Menu (<= 768px) */
+    @media (max-width: 768px) {
+      .nav-toggle-label {
+        display: block; /* show hamburger icon */
+      }
+      .nav-links {
+        display: none; /* hide links by default */
+        width: 100%;
+        background-color: var(--header-background);
+        flex-direction: column;
+        gap: 0;
+      }
+      .nav-links a {
+        padding: 1rem;
+        margin: 0;
+        border-top: 1px solid #FFFFFF;
+      }
+      /* Toggle open when checkbox is checked */
+      #nav-toggle:checked ~ .nav-links {
+        display: flex;
+      }
+      /* Animate Hamburger to X */
+      #nav-toggle:checked + .nav-toggle-label span {
+        background-color: transparent;
+      }
+      #nav-toggle:checked + .nav-toggle-label span::before {
+        transform: rotate(45deg);
+        top: 0;
+      }
+      #nav-toggle:checked + .nav-toggle-label span::after {
+        transform: rotate(-45deg);
+        top: 0;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      padding: 3rem 0;
+      text-align: center;
+      background: var(--card-background);
+      border-bottom: 4px solid var(--primary-color);
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+    .highlight {
+      color: var(--secondary-color);
+      font-weight: bold;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-color);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Profile Pic */
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      margin: 0 auto 1.5rem auto;
+      display: block;
+    }
+
+    /* Content Sections */
+    .content-section {
+      padding: 2rem 0;
+    }
+
+    /* Card Style */
+    .card {
+      background-color: var(--card-background);
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Section Headings */
+    .content-section h3 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      border-bottom: 2px solid var(--primary-color);
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Job Titles */
+    .job h4 {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+    .job p em {
+      color: #777777;
+      font-style: normal;
+    }
+
+    /* Lists */
+    ul {
+      margin-left: 1.5rem;
+      margin-top: 0.5rem;
+      list-style-type: disc;
+    }
+    ul li {
+      margin-bottom: 0.5rem;
+      color: var(--text-color);
+    }
+
+    /* Note / About Section */
+    .note {
+      border-left: 5px solid var(--secondary-color);
+      padding-left: 1.5rem;
+      background-color: #F9FBFD; 
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    @media (prefers-color-scheme: dark) {
+      .note {
+        background-color: #1F2937;
+        color: #C9D1D9;
+      }
+      .note a {
+        color: var(--link-color);
+      }
+      .note a:hover {
+        color: var(--hover-color);
+      }
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--primary-color);
+      color: #FFFFFF;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 0.9rem;
+    }
+
+    /* Anchor hover */
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--hover-color);
+    }
+
+    /* Small Screens Adjustments */
+    @media (max-width: 600px) {
+      .profile-pic {
+        width: 120px;
+        height: 120px;
+      }
+      .hero h2 {
+        font-size: 2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .content-section h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
   <!-- Header / Navigation -->
   <header>
     <nav>
       <div class="container nav-container">
+        <!-- Logo / Header Text -->
         <div class="logo">
-          <!-- Added class "main-header" for targeted styling -->
           <h1 class="main-header">Kaan Aldemir</h1>
         </div>
-        <!-- Hamburger Menu for Mobile -->
+
+        <!-- Hidden checkbox for mobile menu toggle -->
         <input type="checkbox" id="nav-toggle" class="nav-toggle" />
         <label for="nav-toggle" class="nav-toggle-label">
           <span></span>
         </label>
+
+        <!-- Navigation Links -->
         <div class="nav-links">
           <a href="#objective">Objective</a>
           <a href="#experience">Experience</a>
@@ -78,8 +404,7 @@
     <div class="container card">
       <h3>Objective</h3>
       <p>
-        <!-- Preserving your original text exactly as requested -->
-        As a computer engineer, looking for opportunities as such that I can improve and reach to my true potential. 
+        As a computer engineer, looking for opportunities such that I can improve and reach my true potential. 
         I strongly believe and feel confident in activating my potential in a real work environment benefiting from mentoring opportunities.
       </p>
     </div>
@@ -89,7 +414,6 @@
   <section class="content-section" id="experience">
     <div class="container card">
       <h3>Work Experience</h3>
-
       <div class="job">
         <h4>HOMETECH R&amp;D Department — Computer Engineer</h4>
         <p><em>Küçükçekmece/İstanbul — June 2024/Present</em></p>
@@ -115,10 +439,7 @@
       <h3>Projects</h3>
       <ul>
         <li><strong>Dissertation:</strong> Chest X-Ray AI for pneumonia over web and mobile</li>
-        <li>
-          <strong>Router-based Personal Website:</strong> Set up a reverse proxy on OpenWRT, leveraging GCP, DuckDNS, and Tailscale
-          to host a minimal website.
-        </li>
+        <li><strong>Router-based Personal Website:</strong> Reverse proxy on OpenWRT, GCP, DuckDNS, Tailscale</li>
         <li><strong>Custom Image Processing Tool:</strong> Luminance manipulation</li>
         <li><strong>Ticket Selling Automation</strong></li>
         <li><strong>PC Game:</strong> Hill Climb clone</li>
@@ -160,9 +481,9 @@
       <p><strong>Email:</strong> <a href="mailto:kaanaldemir1608@gmail.com">kaanaldemir1608@gmail.com</a></p>
       <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/kaan-aldemir" target="_blank">linkedin.com/in/kaan-aldemir</a></p>
       <p><strong>GitHub:</strong> <a href="https://github.com/kaanaldemir" target="_blank">github.com/kaanaldemir</a></p>
-
-      <!-- View CV Link -->
-      <p><strong>View CV:</strong> <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer">Kaan Aldemir - CV.pdf</a></p>
+      <p><strong>View CV:</strong> 
+        <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer">Kaan Aldemir - CV.pdf</a>
+      </p>
     </div>
   </section>
 
