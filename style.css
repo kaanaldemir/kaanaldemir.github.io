@@ -1,0 +1,385 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 
+  CSS Variables for Light and Dark Modes
+  Light Theme Variables (Default)
+*/
+:root {
+  --primary-color: #4A90E2;       /* Soft Blue */
+  --secondary-color: #50E3C2;     /* Mint Green */
+  --accent-color: #F5A623;        /* Warm Orange */
+  --background-color: #F0F4F8;    /* Light Grayish Blue */
+  --text-color: #333333;          /* Dark Gray */
+  --card-background: #FFFFFF;     /* White */
+  --link-color: var(--primary-color);
+  --hover-color: var(--accent-color);
+  --header-background: #4A90E2;   /* Header background */
+  --header-text-color: #FFFFFF;    /* Header text color */
+}
+
+/* 
+  Dark Theme Variables
+  Inspired by GitHub's color scheme for better contrast
+*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary-color: #58A6FF;      /* Bright Blue */
+    --secondary-color: #7EE787;    /* Green accent */
+    --accent-color: #F78166;       /* Warm accent */
+    --background-color: #0D1117;   /* Dark background */
+    --text-color: #C9D1D9;         /* Light gray text */
+    --card-background: #161B22;    /* Card background */
+    --link-color: #58A6FF;         /* Matches primary color */
+    --hover-color: #79C0FF;        /* Lighter blue for hovers */
+    --header-background: #0D1117;   /* Darker header background */
+    --header-text-color: #58A6FF;    /* Header text color in dark mode */
+  }
+}
+
+/* 
+  @font-face Declarations for Local Roboto Fonts 
+*/
+@font-face {
+  font-family: 'Roboto';
+  src: url('Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Body and Basic Typography */
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 16px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Container */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Navigation Bar */
+nav {
+  background-color: var(--header-background);
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo h1 {
+  /* Updated to use a specific color variable */
+  color: var(--header-text-color);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+/* Colored <h1> Element */
+.main-header {
+  /* Use primary color in light mode and link color in dark mode */
+  color: var(--primary-color);
+  transition: color 0.3s ease;
+}
+
+/* Update color in dark mode */
+@media (prefers-color-scheme: dark) {
+  .main-header {
+    color: var(--link-color);
+  }
+}
+
+.nav-links a {
+  color: #FFFFFF;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--hover-color);
+}
+
+/* View CV Button Styles */
+.nav-links a.view-cv {
+  background-color: var(--secondary-color);
+  color: #333333;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-left: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-links a.view-cv:hover {
+  background-color: var(--hover-color);
+}
+
+/* Navigation Toggle (Hamburger) */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-toggle-label span,
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  display: block;
+  background-color: #FFFFFF;
+  height: 3px;
+  width: 25px;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  position: absolute;
+}
+
+.nav-toggle-label span::before {
+  top: -8px;
+}
+
+.nav-toggle-label span::after {
+  top: 8px;
+}
+
+/* Show Hamburger on Mobile */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    width: 100%;
+    background-color: var(--header-background);
+    flex-direction: column;
+  }
+
+  .nav-links a {
+    padding: 1rem;
+    margin: 0;
+    border-top: 1px solid #FFFFFF;
+  }
+
+  .nav-toggle-label {
+    display: block;
+  }
+
+  /* Toggle Navigation */
+  #nav-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  /* Animate Hamburger to X */
+  #nav-toggle:checked + .nav-toggle-label span {
+    background-color: transparent;
+  }
+
+  #nav-toggle:checked + .nav-toggle-label span::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+
+  #nav-toggle:checked + .nav-toggle-label span::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+}
+
+/* Hero Section */
+.hero {
+  padding: 3rem 0;
+  text-align: center;
+  background: var(--card-background);
+  border-bottom: 4px solid var(--primary-color);
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.highlight {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Profile Picture */
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Circle */
+  object-fit: cover; /* Maintain aspect ratio and cover the container */
+  border: 3px solid #FFFFFF; /* White border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin: 0 auto 1.5rem auto;
+  display: block;
+}
+
+/* Content Sections */
+.content-section {
+  padding: 2rem 0;
+}
+
+/* Card-like Blocks */
+.card {
+  background-color: var(--card-background);
+  border-radius: 12px; /* Softer corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Section Headings */
+.content-section h3 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--primary-color);
+  display: inline-block;
+  padding-bottom: 0.5rem;
+}
+
+/* Job Titles */
+.job h4 {
+  font-size: 1.2rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.job p em {
+  color: #777777;
+  font-style: normal;
+}
+
+/* Lists */
+ul {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  list-style-type: disc;
+}
+
+ul li {
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+/* Note / About Section */
+.note {
+  border-left: 5px solid var(--secondary-color);
+  padding-left: 1.5rem;
+  background-color: #F9FBFD; /* Light background for highlight card in light mode */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode Adjustments for Note / About Section */
+@media (prefers-color-scheme: dark) {
+  .note {
+    background-color: #1F2937; /* Darker background for highlight card */
+    color: #C9D1D9; /* Light gray text */
+  }
+
+  .note a {
+    color: var(--link-color);
+  }
+
+  .note a:hover {
+    color: var(--hover-color);
+  }
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--hover-color);
+}
+
+/* Responsive Image Adjustments */
+@media (max-width: 600px) {
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .nav-links a {
+    margin: 0.5rem 0;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .content-section h3 {
+    font-size: 1.5rem;
+  }
+}
