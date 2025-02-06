@@ -79,7 +79,7 @@
       <h2>Hello, I'm <span class="highlight">Kaan Aldemir</span></h2>
       <!-- Typewriter text container (original text) -->
       <p id="typewriterText">Computer Engineer passionate about leveraging technology to solve real-world problems.</p>
-      <!-- Contact Icons below portrait: TEL icon now appears before WhatsApp -->
+      <!-- Contact Icons below portrait -->
       <div class="hero-contacts">
         <a href="tel:+905347806600" title="Call"><i class="fa fa-phone"></i></a>
         <a href="https://wa.me/905347806600" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
@@ -90,7 +90,7 @@
     </div>
   </section>
 
-  <!-- Objective -->
+  <!-- Objective Section -->
   <section class="content-section card-to-animate" id="objective">
     <div class="container card">
       <h3>Objective</h3>
@@ -101,7 +101,7 @@
     </div>
   </section>
 
-  <!-- Work Experience -->
+  <!-- Work Experience Section -->
   <section class="content-section card-to-animate" id="experience">
     <div class="container card">
       <h3>Work Experience</h3>
@@ -123,7 +123,7 @@
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- Projects Section -->
   <section class="content-section card-to-animate" id="projects">
     <div class="container card">
       <h3>Projects</h3>
@@ -140,7 +140,7 @@
     </div>
   </section>
 
-  <!-- Skills -->
+  <!-- Skills Section -->
   <section class="content-section card-to-animate" id="skills">
     <div class="container card">
       <h3>Skills</h3>
@@ -154,7 +154,7 @@
     </div>
   </section>
 
-  <!-- Education -->
+  <!-- Education Section -->
   <section class="content-section card-to-animate" id="education">
     <div class="container card">
       <h3>Education</h3>
@@ -162,23 +162,38 @@
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- Contact Section -->
   <section class="content-section card-to-animate" id="contact">
-    <div class="container card">
-      <h3>Contact</h3>
-      <!-- In Contacts section, Tel appears before WhatsApp -->
-      <p><i class="fa fa-phone"></i> <strong>Tel:</strong> +90 534 780 6600</p>
-      <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +90 534 780 6600</p>
-      <p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:kaanaldemir1608@gmail.com">kaanaldemir1608@gmail.com</a></p>
-      <p><i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/kaan-aldemir" target="_blank">linkedin.com/in/kaan-aldemir</a></p>
-      <p><i class="fab fa-github"></i> <strong>GitHub:</strong> <a href="https://github.com/kaanaldemir" target="_blank">github.com/kaanaldemir</a></p>
-      <p><i class="fa fa-file"></i> <strong>View CV:</strong>
-        <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer">Kaan Aldemir - CV.pdf</a>
-      </p>
+    <div class="container card contact-wrapper">
+      <!-- Left column: contact details -->
+      <div class="contact-info">
+        <h3>Contact</h3>
+        <p><i class="fa fa-phone"></i> <strong>Tel:</strong> +90 534 780 6600</p>
+        <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +90 534 780 6600</p>
+        <p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:kaanaldemir1608@gmail.com">kaanaldemir1608@gmail.com</a></p>
+        <p><i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/kaan-aldemir" target="_blank">linkedin.com/in/kaan-aldemir</a></p>
+        <p><i class="fab fa-github"></i> <strong>GitHub:</strong> <a href="https://github.com/kaanaldemir" target="_blank">github.com/kaanaldemir</a></p>
+        <p><i class="fa fa-file"></i> <strong>View CV:</strong>
+          <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer">Kaan Aldemir - CV.pdf</a>
+        </p>
+      </div>
+      <!-- Right column: message form -->
+      <div class="contact-form">
+        <h3>Send a Message</h3>
+        <div class="form-row">
+          <input type="text" id="msgName" placeholder="Name" />
+          <input type="email" id="msgEmail" placeholder="Email" />
+          <input type="tel" id="msgTel" placeholder="Number" />
+        </div>
+        <div class="form-row">
+          <textarea id="msgText" placeholder="Your message..."></textarea>
+        </div>
+        <button id="sendButton" disabled>Send Message</button>
+      </div>
     </div>
   </section>
 
-  <!-- About This Site -->
+  <!-- About This Site Section -->
   <section class="content-section card-to-animate" id="about-site">
     <div class="container card note">
       <h3>About This Site</h3>

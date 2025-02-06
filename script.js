@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
     downTimeout = setTimeout(() => { downClickCount = 0; }, quickClickThreshold);
   
     if (downClickCount >= 2) {
-      // Double-click detected: scroll to the very bottom.
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       downClickCount = 0;
       return;
@@ -103,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = getCurrentSectionIndex();
     let nextIndex = currentIndex + 1;
     if (nextIndex >= sections.length) {
-      // If already at last section, scroll to the top.
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
       scrollToSection(nextIndex);
@@ -118,7 +116,6 @@ document.addEventListener('DOMContentLoaded', () => {
     upTimeout = setTimeout(() => { upClickCount = 0; }, quickClickThreshold);
   
     if (upClickCount >= 2) {
-      // Double-click detected: scroll to the very top.
       window.scrollTo({ top: 0, behavior: 'smooth' });
       upClickCount = 0;
       return;
@@ -130,5 +127,71 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       scrollToSection(currentIndex - 1);
     }
+  });
+  
+  /******************************************************
+   * CONTACT FORM VALIDATION & SEND MESSAGE
+   ******************************************************/
+  const msgName = document.getElementById('msgName');
+  const msgEmail = document.getElementById('msgEmail');
+  const msgTel = document.getElementById('msgTel');
+  const msgText = document.getElementById('msgText');
+  const sendButton = document.getElementById('sendButton');
+  
+  function validateForm() {
+    // At least one of name, email, or tel must be non-empty.
+    const anyFilled = msgName.value.trim() !== "" || msgEmail.value.trim() !== "" || msgTel.value.trim() !== "";
+    // Text area must have at least 10 characters.
+    const messageValid = msgText.value.trim().length >= 10;
+    
+    sendButton.disabled = !(anyFilled && messageValid);
+    
+    // Optionally, you can change button appearance if enabled.
+    if (!sendButton.disabled) {
+      sendButton.style.backgroundColor = "var(--secondary-color)";
+    } else {
+      sendButton.style.backgroundColor = "#cccccc";
+    }
+  }
+  
+  // Listen for input events on form fields.
+  [msgName, msgEmail, msgTel, msgText].forEach(input => {
+    input.addEventListener('input', validateForm);
+  });
+  
+  // When send message is pressed, send the data via POST.
+  // Note: This requires a server-side script (for example, messages/save.php) to actually save the message.
+  sendButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const formData = {
+      name: msgName.value.trim(),
+      email: msgEmail.value.trim(),
+      tel: msgTel.value.trim(),
+      message: msgText.value.trim()
+    };
+  
+    // Example POST request using fetch. Adjust the URL to your server-side script.
+    fetch('messages/save.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
+      if (response.ok) {
+        alert("Message sent successfully!");
+        // Optionally, clear the form:
+        msgName.value = "";
+        msgEmail.value = "";
+        msgTel.value = "";
+        msgText.value = "";
+        validateForm();
+      } else {
+        alert("There was an error sending your message.");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("There was an error sending your message.");
+    });
   });
   
