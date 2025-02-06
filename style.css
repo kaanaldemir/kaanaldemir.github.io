@@ -1,150 +1,123 @@
-/* Global Reset */
+/* -----------------------------------
+   GLOBAL RESET
+----------------------------------- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* 
-  Light Theme (Default) Variables
-*/
+/* -----------------------------------
+   LIGHT THEME (DEFAULT)
+----------------------------------- */
 :root {
-  --primary-color: #4A90E2;       /* Soft Blue */
-  --secondary-color: #50E3C2;     /* Mint Green */
-  --accent-color: #F5A623;        /* Warm Orange */
-  --background-color: #F0F4F8;    /* Light Grayish Blue */
-  --text-color: #333333;          /* Dark Gray */
-  --card-background: #FFFFFF;     /* White */
+  --primary-color: #4A90E2;
+  --secondary-color: #50E3C2;
+  --accent-color: #F5A623;
+  --background-color: #F0F4F8;
+  --text-color: #333333;
+  --card-background: #FFFFFF;
   --link-color: var(--primary-color);
   --hover-color: var(--accent-color);
-  --header-background: #4A90E2;   /* Header background */
-  --header-text-color: #FFFFFF;   /* Header text color */
+  --header-background: #4A90E2;
+  --header-text-color: #FFFFFF;
 }
 
-/* 
-  Dark Theme
-*/
-@media (prefers-color-scheme: dark) {
-  :root {
-    --primary-color: #58A6FF;      
-    --secondary-color: #7EE787;    
-    --accent-color: #F78166;       
-    --background-color: #0D1117;   
-    --text-color: #C9D1D9;         
-    --card-background: #161B22;    
-    --link-color: #58A6FF;         
-    --hover-color: #79C0FF;        
-    --header-background: #0D1117;  
-    --header-text-color: #58A6FF;  
-  }
+/* -----------------------------------
+   DARK THEME (Custom Toggle & Device Preference)
+----------------------------------- */
+body.dark-mode {
+  --primary-color: #58A6FF;
+  --secondary-color: #7EE787;
+  --accent-color: #F78166;
+  --background-color: #0D1117;
+  --text-color: #C9D1D9;
+  --card-background: #161B22;
+  --link-color: #58A6FF;
+  --hover-color: #79C0FF;
+  --header-background: #0D1117;
+  --header-text-color: #58A6FF;
 }
 
-/* Roboto Fonts */
-@font-face {
-  font-family: 'Roboto';
-  src: url('Roboto-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  src: url('Roboto-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-}
-
-/* Body */
+/* -----------------------------------
+   BODY & CONTAINER
+----------------------------------- */
 body {
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 16px;
   background-color: var(--background-color);
   color: var(--text-color);
   line-height: 1.6;
 }
 
-/* Container */
 .container {
   width: 90%;
   max-width: 900px;
   margin: 0 auto;
 }
 
-/* Navigation */
+/* -----------------------------------
+   NAVIGATION
+----------------------------------- */
 nav {
   background-color: var(--header-background);
-  padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-/* Nav container: flex row on desktop */
 .nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px;
 }
 
-/* Logo */
 .logo h1 {
   color: var(--header-text-color);
   font-size: 1.5rem;
   letter-spacing: 1px;
+  margin: 0;
 }
 
-/* Main Header styling (colored text) */
 .main-header {
   color: var(--primary-color);
   transition: color 0.3s ease;
 }
-
 @media (prefers-color-scheme: dark) {
   .main-header {
     color: var(--link-color);
   }
 }
 
-/* Nav links (Desktop) */
-.nav-links {
-  display: flex; /* default: horizontal menu on larger screens */
-  gap: 1.5rem;
-}
-
+/* Nav links: update text color to a darker white (#dddddd) */
 .nav-links a {
-  color: #FFFFFF;
+  color: #dddddd;
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease;
 }
-
 .nav-links a:hover {
   color: var(--hover-color);
 }
 
-/* View CV Button in Nav */
 .nav-links a.view-cv {
   background-color: var(--secondary-color);
   color: #333333;
   padding: 0.5rem 1rem;
   border-radius: 4px;
-  margin-left: 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 .nav-links a.view-cv:hover {
   background-color: var(--hover-color);
 }
 
-/* Hidden Checkbox */
+/* -----------------------------------
+   MOBILE NAVIGATION
+----------------------------------- */
 .nav-toggle {
   display: none;
 }
-
-/* Hamburger Label */
 .nav-toggle-label {
-  display: none; /* hidden on desktop */
+  display: none;
   cursor: pointer;
 }
-
 .nav-toggle-label span,
 .nav-toggle-label span::before,
 .nav-toggle-label span::after {
@@ -156,91 +129,92 @@ nav {
   position: relative;
   transition: all 0.3s ease-in-out;
 }
-
 .nav-toggle-label span::before,
 .nav-toggle-label span::after {
   content: "";
   position: absolute;
 }
-
 .nav-toggle-label span::before {
   top: -8px;
 }
-
 .nav-toggle-label span::after {
   top: 8px;
 }
 
-/* Mobile Styles */
 @media (max-width: 768px) {
-  /* Stack the nav items vertically */
+  .nav-toggle-label {
+    display: block;
+  }
   .nav-links {
-    display: none; /* hidden by default on mobile */
+    display: none;
     width: 100%;
     background-color: var(--header-background);
     flex-direction: column;
-    gap: 0; /* remove gap so we can show border lines */
+    gap: 0;
   }
-
   .nav-links a {
     padding: 1rem;
     margin: 0;
     border-top: 1px solid #FFFFFF;
   }
-
-  /* Show the hamburger on mobile */
-  .nav-toggle-label {
-    display: block;
-  }
-
-  /* When checkbox is checked, show the nav menu */
   #nav-toggle:checked ~ .nav-links {
     display: flex;
   }
-
-  /* Animate Hamburger to X */
   #nav-toggle:checked + .nav-toggle-label span {
     background-color: transparent;
   }
-
   #nav-toggle:checked + .nav-toggle-label span::before {
     transform: rotate(45deg);
     top: 0;
   }
-
   #nav-toggle:checked + .nav-toggle-label span::after {
     transform: rotate(-45deg);
     top: 0;
   }
 }
 
-/* Hero Section */
+/* -----------------------------------
+   HERO
+----------------------------------- */
 .hero {
   padding: 3rem 0;
   text-align: center;
   background: var(--card-background);
   border-bottom: 4px solid var(--primary-color);
 }
-
 .hero h2 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
   color: var(--text-color);
 }
-
 .highlight {
   color: var(--secondary-color);
   font-weight: bold;
 }
-
 .hero p {
   font-size: 1.1rem;
   color: var(--text-color);
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
-/* Profile Picture */
+/* Contact icons below portrait in hero */
+.hero-contacts {
+  margin-top: 15px;
+}
+.hero-contacts a {
+  color: var(--primary-color);
+  margin: 0 5px;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+.hero-contacts a:hover {
+  color: var(--hover-color);
+}
+
+/* -----------------------------------
+   PROFILE PICTURE
+----------------------------------- */
 .profile-pic {
   width: 150px;
   height: 150px;
@@ -250,14 +224,15 @@ nav {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   margin: 0 auto 1.5rem auto;
   display: block;
+  cursor: pointer;
 }
 
-/* Content Sections */
+/* -----------------------------------
+   CONTENT SECTIONS & CARDS
+----------------------------------- */
 .content-section {
   padding: 2rem 0;
 }
-
-/* Card-like Blocks */
 .card {
   background-color: var(--card-background);
   border-radius: 12px;
@@ -266,13 +241,10 @@ nav {
   margin-bottom: 2rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-
-/* Section Headings */
 .content-section h3 {
   font-size: 1.8rem;
   color: var(--primary-color);
@@ -281,55 +253,46 @@ nav {
   display: inline-block;
   padding-bottom: 0.5rem;
 }
-
-/* Jobs */
 .job h4 {
   font-size: 1.2rem;
   color: var(--text-color);
   margin-bottom: 0.5rem;
 }
-
 .job p em {
   color: #777777;
   font-style: normal;
 }
-
-/* Lists */
 ul {
   margin-left: 1.5rem;
   margin-top: 0.5rem;
   list-style-type: disc;
 }
-
 ul li {
   margin-bottom: 0.5rem;
   color: var(--text-color);
 }
-
-/* Note / About Section */
 .note {
   border-left: 5px solid var(--secondary-color);
   padding-left: 1.5rem;
-  background-color: #F9FBFD; /* Light highlight for note in light mode */
+  background-color: #F9FBFD;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
-
 @media (prefers-color-scheme: dark) {
   .note {
     background-color: #1F2937;
     color: #C9D1D9;
   }
-
   .note a {
     color: var(--link-color);
   }
-
   .note a:hover {
     color: var(--hover-color);
   }
 }
 
-/* Footer */
+/* -----------------------------------
+   FOOTER
+----------------------------------- */
 footer {
   background-color: var(--primary-color);
   color: #FFFFFF;
@@ -337,32 +300,97 @@ footer {
   padding: 1rem 0;
   font-size: 0.9rem;
 }
-
-/* Links */
 a {
   color: var(--link-color);
   text-decoration: none;
 }
-
 a:hover {
   color: var(--hover-color);
 }
 
-/* Responsive Adjustments */
+/* -----------------------------------
+   THEME TOGGLE BUTTON
+   (Positioned above scroll buttons, bottom: 175px)
+----------------------------------- */
+.theme-toggle-btn {
+  position: fixed;
+  bottom: 175px;
+  right: 30px;
+  z-index: 1100;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+.theme-toggle-btn:hover {
+  background-color: var(--accent-color);
+}
+
+/* -----------------------------------
+   SCROLL BUTTONS CONTAINER & BUTTONS
+----------------------------------- */
+.scroll-buttons-container {
+  position: fixed;
+  bottom: 40px;
+  right: 30px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.scroll-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+.scroll-button:hover {
+  background-color: var(--accent-color);
+}
+
+/* -----------------------------------
+   FADE-IN ANIMATION FOR CARDS
+----------------------------------- */
+.card-to-animate {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.card-to-animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -----------------------------------
+   RESPONSIVE ADJUSTMENTS
+----------------------------------- */
 @media (max-width: 600px) {
   .profile-pic {
     width: 120px;
     height: 120px;
   }
-
   .hero h2 {
     font-size: 2rem;
   }
-
   .hero p {
     font-size: 1rem;
   }
-
   .content-section h3 {
     font-size: 1.5rem;
   }
