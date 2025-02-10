@@ -89,7 +89,7 @@ nav {
   }
 }
 
-/* Nav links: update text color to a darker white (#dddddd) */
+/* Nav links */
 .nav-links a {
   color: #dddddd;
   text-decoration: none;
@@ -201,7 +201,9 @@ nav {
   margin: 0 auto;
 }
 
-/* Contact icons below portrait in hero */
+/* -----------------------------------
+   CONTACT ICONS (in hero)
+----------------------------------- */
 .hero-contacts {
   margin-top: 15px;
 }
@@ -313,7 +315,6 @@ a:hover {
 
 /* -----------------------------------
    THEME TOGGLE BUTTON
-   (Positioned above scroll buttons, bottom: 175px)
 ----------------------------------- */
 .theme-toggle-btn {
   position: fixed;
@@ -364,7 +365,7 @@ a:hover {
   transition: background-color 0.3s ease;
 }
 .scroll-button:hover {
-  background-color: var(--accent-color);
+  background-color: var(--hover-color);
 }
 
 /* -----------------------------------
@@ -422,7 +423,6 @@ a:hover {
 /* -----------------------------------
    CONTACT FORM INPUTS, TEXTAREA, & BUTTON
 ----------------------------------- */
-/* Stack input fields vertically and reduce vertical spacing */
 .contact-form .form-row {
   display: flex;
   flex-direction: column;
@@ -431,8 +431,8 @@ a:hover {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 0.5rem;          /* Reduced padding */
-  margin-bottom: 0.5rem;     /* Reduced vertical space */
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: var(--input-background);
@@ -440,7 +440,6 @@ a:hover {
   font-size: 1rem;
 }
 
-/* Enhanced focus styling */
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
@@ -448,9 +447,8 @@ a:hover {
   box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
 }
 
-/* Style and position the Send Message button */
 .contact-form button {
-  float: right;  /* Align the button to the right */
+  float: right;
   background-color: var(--secondary-color);
   color: #333;
   padding: 0.5rem 1.5rem;
@@ -459,7 +457,6 @@ a:hover {
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  /* Optional: Clear float after the button if needed */
 }
 
 .contact-form button:disabled {
