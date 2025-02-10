@@ -21,6 +21,7 @@
   --hover-color: var(--accent-color);
   --header-background: #4A90E2;
   --header-text-color: #FFFFFF;
+  --input-background: #f9f9f9;  /* Custom background for input boxes */
 }
 
 /* -----------------------------------
@@ -37,6 +38,7 @@ body.dark-mode {
   --hover-color: #79C0FF;
   --header-background: #0D1117;
   --header-text-color: #58A6FF;
+  --input-background: #0D1117;  /* Dark mode background for input boxes */
 }
 
 /* -----------------------------------
@@ -395,4 +397,77 @@ a:hover {
   .content-section h3 {
     font-size: 1.5rem;
   }
+}
+
+/* -----------------------------------
+   CONTACT SECTION LAYOUT ADJUSTMENT
+----------------------------------- */
+.contact-wrapper {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.contact-info,
+.contact-form {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .contact-wrapper {
+    flex-direction: column;
+  }
+}
+
+/* -----------------------------------
+   CONTACT FORM INPUTS, TEXTAREA, & BUTTON
+----------------------------------- */
+/* Stack input fields vertically and reduce vertical spacing */
+.contact-form .form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.5rem;          /* Reduced padding */
+  margin-bottom: 0.5rem;     /* Reduced vertical space */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: var(--input-background);
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+/* Enhanced focus styling */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+/* Style and position the Send Message button */
+.contact-form button {
+  float: right;  /* Align the button to the right */
+  background-color: var(--secondary-color);
+  color: #333;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  /* Optional: Clear float after the button if needed */
+}
+
+.contact-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.contact-form button:hover:not(:disabled) {
+  background-color: var(--hover-color);
+  transform: scale(1.05);
 }
