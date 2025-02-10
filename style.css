@@ -27,7 +27,7 @@
    DARK THEME (Custom Toggle & Device Preference)
 ----------------------------------- */
 body.dark-mode {
-  --primary-color: #58A6FF;
+  --primary-color: #4c8dd8;
   --secondary-color: #7EE787;
   --accent-color: #F78166;
   --background-color: #0D1117;
@@ -93,6 +93,7 @@ nav {
   text-decoration: none;
   font-size: 1rem;
   transition: color 0.3s ease;
+  margin-right: 10px;
 }
 .nav-links a:hover {
   color: var(--hover-color);
@@ -141,7 +142,7 @@ nav {
   top: 8px;
 }
 
-@media (max-width: 950px) {
+@media (max-width: 1080px) {
   .nav-toggle-label {
     display: block;
   }
@@ -280,7 +281,7 @@ ul li {
 @media (prefers-color-scheme: dark) {
   .note {
     background-color: #1F2937;
-    color: #C9D1D9;
+    color: #d6b6b6;
   }
   .note a {
     color: var(--link-color);
@@ -314,7 +315,7 @@ a:hover {
 ----------------------------------- */
 .theme-toggle-btn {
   position: fixed;
-  bottom: 175px;
+  bottom: 210px;
   right: 30px;
   z-index: 1100;
   background-color: var(--primary-color);
@@ -339,7 +340,7 @@ a:hover {
 ----------------------------------- */
 .scroll-buttons-container {
   position: fixed;
-  bottom: 40px;
+  bottom: 75px;
   right: 30px;
   z-index: 1000;
   display: flex;
