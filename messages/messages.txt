@@ -1,1 +1,1 @@
-{"time":"2025-02-10 14:24:24","name":"John Doe","email":"john@example.com","tel":"1234567890","message":"This is a test message."}
+{"time":"2025-02-10 19:23:23","name":"Emir","email":"ebasaran999@gmail.com","tel":"5343505727","message":"Respect o7"}
