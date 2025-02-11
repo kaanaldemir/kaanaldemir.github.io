@@ -305,7 +305,7 @@
   // Validate message length.
   var messageLen = msgText.value.trim().length;
   if (messageLen < 10) {
-    showToast("Error: Message must be at least 10 characters long.", "error");
+    showToast("Message must be at least 10 characters long.", "error");
     return;
   }
   
@@ -315,7 +315,7 @@
     email2.value = "doe.com";
   } else if (email1.value.trim() === "" || email2.value.trim() === "") {
     // If only one is empty, show an error.
-    showToast("Error: Both email fields must be filled in.", "error");
+    showToast("Both email fields must be filled in.", "error");
     return;
   }
   
@@ -325,7 +325,7 @@
   }
   // Validate telephone number length.
   if (telInput.value.trim().length !== 10) {
-    showToast("Error: Telephone number must be exactly 10 digits.", "error");
+    showToast("Telephone number must be 10 digits.", "error");
     return;
   }
   
@@ -368,12 +368,12 @@
       msgText.value = "";
       sendButton.disabled = true;
     } else {
-      showToast("Error: " + (data.error || "Unknown error"), "error");
+      showToast("" + (data.error || "Unknown error"), "error");
     }
   })
   .catch(error => {
     console.error("Error:", error);
-    showToast("Error: Could not send message.", "error");
+    showToast("Could not send message.", "error");
   });
 });
 
