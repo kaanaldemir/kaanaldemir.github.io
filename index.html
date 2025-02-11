@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -29,6 +29,11 @@
     }
   }
   </script>
+
+   <!-- Favicon links -->
+  <link rel="icon" type="image/png" sizes="16x16" href="web/16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="web/32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="web/96.png">
 
   <!-- Local Font Awesome -->
   <link rel="stylesheet" href="awesome/css/all.min.css" />
@@ -90,12 +95,15 @@
       </a>
       <h2>Hello, I'm <span class="highlight">Kaan Aldemir</span></h2>
       <p id="typewriterText">Computer Engineer passionate about leveraging technology to solve real-world problems.</p>
+      <!-- Reordered hero contacts -->
       <div class="hero-contacts">
+        <a href="https://github.com/kaanaldemir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/kaan-aldemir" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+        <a href="mailto:kaanaldemir1608@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+        <a href="https://www.instagram.com/kaanaldemir" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
         <a href="tel:+905347806600" title="Call"><i class="fa fa-phone"></i></a>
         <a href="https://wa.me/905347806600" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="mailto:kaanaldemir1608@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
-        <a href="https://linkedin.com/in/kaan-aldemir" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/kaanaldemir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer" title="View CV"><i class="fa fa-file"></i></a>
       </div>
     </div>
   </section>
@@ -177,12 +185,33 @@
     <div class="container card contact-wrapper">
       <div class="contact-info">
         <h3>Contact</h3>
-        <p><i class="fa fa-phone"></i> <strong>Tel:</strong> +90 534 780 6600</p>
-        <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +90 534 780 6600</p>
-        <p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:kaanaldemir1608@gmail.com">kaanaldemir1608@gmail.com</a></p>
-        <p><i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/kaan-aldemir" target="_blank">linkedin.com/in/kaan-aldemir</a></p>
-        <p><i class="fab fa-github"></i> <strong>GitHub:</strong> <a href="https://github.com/kaanaldemir" target="_blank">github.com/kaanaldemir</a></p>
-        <p><i class="fa fa-file"></i> <strong>View CV:</strong>
+        <!-- Reordered contact info -->
+        <p>
+          <i class="fab fa-github"></i> <strong>GitHub:</strong>
+          <a href="https://github.com/kaanaldemir" target="_blank">github.com/kaanaldemir</a>
+        </p>
+        <p>
+          <i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong>
+          <a href="https://linkedin.com/in/kaan-aldemir" target="_blank">linkedin.com/in/kaan-aldemir</a>
+        </p>
+        <p>
+          <i class="fa fa-envelope"></i> <strong>Email:</strong>
+          <a href="mailto:kaanaldemir1608@gmail.com">kaanaldemir1608@gmail.com</a>
+        </p>
+        <p>
+          <i class="fab fa-instagram"></i> <strong>Instagram:</strong>
+          <a href="https://www.instagram.com/kaanaldemir" target="_blank">instagram.com/kaanaldemir</a>
+        </p>
+        <p>
+          <i class="fa fa-phone"></i> <strong>Tel:</strong>
+          <a href="tel:+905347806600">+90 534 780 6600</a>
+        </p>
+        <p>
+          <i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong>
+          <a href="https://wa.me/905347806600">+90 534 780 6600</a>
+        </p>
+        <p>
+          <i class="fa fa-file"></i> <strong>View CV:</strong>
           <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer">Kaan Aldemir - CV.pdf</a>
         </p>
       </div>
@@ -242,143 +271,142 @@
   <!-- External JS -->
   <script src="script.js"></script>
 
-<!-- Inline JavaScript for Send Message Enhancements & Toasts -->
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Auto-advance email input if "@" is typed.
-    var email1 = document.getElementById("msgEmail1");
-    var email2 = document.getElementById("msgEmail2");
-    email1.addEventListener("input", function() {
-      if (this.value.indexOf("@") !== -1) {
-        this.value = this.value.replace("@", "");
-        email2.focus();
+  <!-- Inline JavaScript for Send Message Enhancements & Toasts -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Auto-advance email input if "@" is typed.
+      var email1 = document.getElementById("msgEmail1");
+      var email2 = document.getElementById("msgEmail2");
+      email1.addEventListener("input", function() {
+        if (this.value.indexOf("@") !== -1) {
+          this.value = this.value.replace("@", "");
+          email2.focus();
+        }
+      });
+
+      // Allow only digits in the telephone input.
+      var telInput = document.getElementById("msgTel");
+      telInput.addEventListener("input", function() {
+        this.value = this.value.replace(/\D/g, "");
+      });
+
+      // For country code, allow only digits and a leading plus.
+      var countryInput = document.getElementById("msgCountryCode");
+      countryInput.addEventListener("input", function() {
+        this.value = this.value.replace(/[^0-9+]/g, "");
+      });
+
+      // Enable send button if at least one contact field is filled and message is valid.
+      var sendButton = document.getElementById("sendButton");
+      var msgName = document.getElementById("msgName");
+      var msgText = document.getElementById("msgText");
+
+      function checkFields() {
+        var anyContact = msgName.value.trim() !== "" || email1.value.trim() !== "" || email2.value.trim() !== "" || telInput.value.trim() !== "";
+        var messageValid = msgText.value.trim().length >= 10;
+        sendButton.disabled = !(anyContact && messageValid);
       }
-    });
+      [msgName, email1, email2, countryInput, telInput, msgText].forEach(function(field) {
+        field.addEventListener("input", checkFields);
+      });
 
-    // Allow only digits in the telephone input.
-    var telInput = document.getElementById("msgTel");
-    telInput.addEventListener("input", function() {
-      this.value = this.value.replace(/\D/g, "");
-    });
-
-    // For country code, allow only digits and a leading plus.
-    var countryInput = document.getElementById("msgCountryCode");
-    countryInput.addEventListener("input", function() {
-      this.value = this.value.replace(/[^0-9+]/g, "");
-    });
-
-    // Enable send button if at least one contact field is filled and message is valid.
-    var sendButton = document.getElementById("sendButton");
-    var msgName = document.getElementById("msgName");
-    var msgText = document.getElementById("msgText");
-
-    function checkFields() {
-      var anyContact = msgName.value.trim() !== "" || email1.value.trim() !== "" || email2.value.trim() !== "" || telInput.value.trim() !== "";
-      var messageValid = msgText.value.trim().length >= 10;
-      sendButton.disabled = !(anyContact && messageValid);
-    }
-    [msgName, email1, email2, countryInput, telInput, msgText].forEach(function(field) {
-      field.addEventListener("input", checkFields);
-    });
-
-    // Toast function for custom notifications.
-    function showToast(message, type) {
-      var toast = document.createElement("div");
-      toast.classList.add("toast");
-      toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-      toast.textContent = message;
-      var container = document.getElementById("toast-container");
-      if (!container) {
-        container = document.createElement("div");
-        container.id = "toast-container";
-        document.body.appendChild(container);
+      // Toast function for custom notifications.
+      function showToast(message, type) {
+        var toast = document.createElement("div");
+        toast.classList.add("toast");
+        toast.classList.add(type === "success" ? "toast-success" : "toast-error");
+        toast.textContent = message;
+        var container = document.getElementById("toast-container");
+        if (!container) {
+          container = document.createElement("div");
+          container.id = "toast-container";
+          document.body.appendChild(container);
+        }
+        container.appendChild(toast);
+        setTimeout(function() {
+          toast.remove();
+        }, 3500);
       }
-      container.appendChild(toast);
-      setTimeout(function() {
-        toast.remove();
-      }, 3500);
-    }
 
-    sendButton.addEventListener("click", function(e) {
-  e.preventDefault();
+      sendButton.addEventListener("click", function(e) {
+        e.preventDefault();
   
-  // Validate message length.
-  var messageLen = msgText.value.trim().length;
-  if (messageLen < 10) {
-    showToast("Message must be at least 10 characters long.", "error");
-    return;
-  }
+        // Validate message length.
+        var messageLen = msgText.value.trim().length;
+        if (messageLen < 10) {
+          showToast("Message must be at least 10 characters long.", "error");
+          return;
+        }
   
-  // Email fields: if both are empty, fill with defaults.
-  if (email1.value.trim() === "" && email2.value.trim() === "") {
-    email1.value = "john";
-    email2.value = "doe.com";
-  } else if (email1.value.trim() === "" || email2.value.trim() === "") {
-    // If only one is empty, show an error.
-    showToast("Both email fields must be filled in.", "error");
-    return;
-  }
+        // Email fields: if both are empty, fill with defaults.
+        if (email1.value.trim() === "" && email2.value.trim() === "") {
+          email1.value = "john";
+          email2.value = "doe.com";
+        } else if (email1.value.trim() === "" || email2.value.trim() === "") {
+          // If only one is empty, show an error.
+          showToast("Both email fields must be filled in.", "error");
+          return;
+        }
   
-  // For telephone field: if empty, fill with default "5555555555".
-  if (telInput.value.trim() === "") {
-    telInput.value = "5555555555";
-  }
-  // Validate telephone number length.
-  if (telInput.value.trim().length !== 10) {
-    showToast("Telephone number must be 10 digits.", "error");
-    return;
-  }
+        // For telephone field: if empty, fill with default "5555555555".
+        if (telInput.value.trim() === "") {
+          telInput.value = "5555555555";
+        }
+        // Validate telephone number length.
+        if (telInput.value.trim().length !== 10) {
+          showToast("Telephone number must be 10 digits.", "error");
+          return;
+        }
   
-  // Fill default for name if empty.
-  if (msgName.value.trim() === "") {
-    msgName.value = "John Doe";
-  }
+        // Fill default for name if empty.
+        if (msgName.value.trim() === "") {
+          msgName.value = "John Doe";
+        }
   
-  // Ensure country code is set.
-  if (countryInput.value.trim() === "") {
-    countryInput.value = "+90";
-  }
+        // Ensure country code is set.
+        if (countryInput.value.trim() === "") {
+          countryInput.value = "+90";
+        }
   
-  // Prepare the data as a JSON object.
-  var formData = {
-    name: msgName.value.trim(),
-    email: email1.value.trim() + "@" + email2.value.trim(),
-    tel: countryInput.value.trim() + telInput.value.trim(),
-    message: msgText.value.trim()
-  };
+        // Prepare the data as a JSON object.
+        var formData = {
+          name: msgName.value.trim(),
+          email: email1.value.trim() + "@" + email2.value.trim(),
+          tel: countryInput.value.trim() + telInput.value.trim(),
+          message: msgText.value.trim()
+        };
 
-  // Send the data via fetch as JSON.
-  fetch("/messages/save.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(formData)
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.success) {
-      showToast("Message sent!", "success");
-      // Clear the form fields.
-      msgName.value = "";
-      email1.value = "";
-      email2.value = "";
-      countryInput.value = "+90";
-      telInput.value = "";
-      msgText.value = "";
-      sendButton.disabled = true;
-    } else {
-      showToast("" + (data.error || "Unknown error"), "error");
-    }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    showToast("Could not send message.", "error");
-  });
-});
-
-  });
-</script>
+        // Send the data via fetch as JSON.
+        fetch("/save.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            showToast("Message sent!", "success");
+            // Clear the form fields.
+            msgName.value = "";
+            email1.value = "";
+            email2.value = "";
+            countryInput.value = "+90";
+            telInput.value = "";
+            msgText.value = "";
+            sendButton.disabled = true;
+          } else {
+            showToast("" + (data.error || "Unknown error"), "error");
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          showToast("Could not send message.", "error");
+        });
+      });
+    });
+  </script>
 
   <!-- Other Inline Scripts: Typewriter, Theme Toggle, Fade-in Animations & Scroll Buttons -->
   <script>
@@ -485,5 +513,22 @@
       }
     });
   </script>
+  <script>
+    window.addEventListener('load', () => {
+      if (window.location.hash) {
+        const targetId = window.location.hash;
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          // Reset scroll position to the top immediately
+          window.scrollTo(0, 0);
+          // After a short delay, smoothly scroll to the element
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      }
+    });
+  </script>  
+  
 </body>
 </html>
