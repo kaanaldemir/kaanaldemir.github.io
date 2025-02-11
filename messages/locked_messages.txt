@@ -1,0 +1,2 @@
+{"id":"67aadf9728dcb","time":"2025-02-10 22:23:23","name":"Emir Can Başaran","email":"ebasaran999@gmail.com","tel":"+905343505727","message":"Respect o7"}
+{"id":"67ab12cc25525","time":"2025-02-11 10:05:16","name":"Akay Deliorman","email":"dantedeliorman@gmail.com","tel":"+905350132189","message":"Pandamm <3"}

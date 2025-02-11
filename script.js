@@ -124,40 +124,63 @@ upButton.addEventListener('click', () => {
 
 /******************************************************
  * CONTACT FORM VALIDATION & SEND MESSAGE
- ******************************************************/
+ ***************************************  ***************/
 const msgName = document.getElementById('msgName');
-const msgEmail = document.getElementById('msgEmail');
-const msgTel = document.getElementById('msgTel');
+const email1 = document.getElementById("msgEmail1");
+const email2 = document.getElementById("msgEmail2");
+const countryInput = document.getElementById("msgCountryCode");
+const telInput = document.getElementById("msgTel");
 const msgText = document.getElementById('msgText');
 const sendButton = document.getElementById('sendButton');
 
-function validateForm() {
-  const anyFilled = msgName.value.trim() !== "" || msgEmail.value.trim() !== "" || msgTel.value.trim() !== "";
-  const messageValid = msgText.value.trim().length >= 10;
+// Enable send button if at least one contact field is filled and message is long enough.
+function checkFields() {
+  const nameFilled = msgName.value.trim() !== "";
+  const emailFilled = (email1.value.trim() !== "" && email2.value.trim() !== "");
+  const telFilled = (countryInput.value.trim() !== "" && telInput.value.trim() !== "");
+  const messageValid = msgText.value.trim().length >= 7;
   
-  sendButton.disabled = !(anyFilled && messageValid);
-  
-  if (!sendButton.disabled) {
-    sendButton.style.backgroundColor = "var(--secondary-color)";
-  } else {
-    sendButton.style.backgroundColor = "#cccccc";
-  }
+  sendButton.disabled = !( (nameFilled || emailFilled || telFilled) && messageValid );
 }
 
-[msgName, msgEmail, msgTel, msgText].forEach(input => {
-  input.addEventListener('input', validateForm);
+[msgName, email1, email2, countryInput, telInput, msgText].forEach(field => {
+  field.addEventListener("input", checkFields);
 });
 
-sendButton.addEventListener('click', (e) => {
+sendButton.addEventListener("click", function(e) {
   e.preventDefault();
+  
+  // Check validations
+  if (msgText.value.trim().length < 7) {
+    showToast("Error: Message must be at least 7 characters long.", "error");
+    return;
+  }
+  if (telInput.value.trim().length !== 10) {
+    showToast("Error: Telephone number must be exactly 10 digits.", "error");
+    return;
+  }
+  
+  // Auto-fill defaults if any contact field is empty
+  if (msgName.value.trim() === "") {
+    msgName.value = "John Doe";
+  }
+  if (email1.value.trim() === "" || email2.value.trim() === "") {
+    email1.value = "john";
+    email2.value = "doe.com";
+  }
+  if (countryInput.value.trim() === "") {
+    countryInput.value = "+90";
+  }
+  
+  // Prepare the data object to send
   const formData = {
     name: msgName.value.trim(),
-    email: msgEmail.value.trim(),
-    tel: msgTel.value.trim(),
+    email: email1.value.trim() + "@" + email2.value.trim(),
+    tel: countryInput.value.trim() + telInput.value.trim(),
     message: msgText.value.trim()
   };
 
-  // Use absolute path to avoid duplicate folder segments:
+  // Send data to your server via POST
   fetch('/messages/save.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -165,18 +188,21 @@ sendButton.addEventListener('click', (e) => {
   })
   .then(response => {
     if (response.ok) {
-      alert("Message sent successfully!");
+      showToast("Message sent!", "success");
+      // Clear the form fields
       msgName.value = "";
-      msgEmail.value = "";
-      msgTel.value = "";
+      email1.value = "";
+      email2.value = "";
+      countryInput.value = "+90";
+      telInput.value = "";
       msgText.value = "";
-      validateForm();
+      sendButton.disabled = true;
     } else {
-      alert("There was an error sending your message.");
+      showToast("Error: Could not send message.", "error");
     }
   })
   .catch(error => {
     console.error("Error:", error);
-    alert("There was an error sending your message.");
+    showToast("Error: Could not send message.", "error");
   });
 });
