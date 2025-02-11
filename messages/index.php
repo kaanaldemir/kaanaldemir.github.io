@@ -1,19 +1,34 @@
 <?php
 // index.php
 
-// Disable error reporting (production mode – no file names/line numbers)
+// Disable error reporting for production
 ini_set('display_errors', 0);
 error_reporting(0);
 
-$messagesFile = __DIR__ . '/messages.txt';
-$messages = [];
+// Define file paths for unlocked and locked messages
+$unlockedFile = __DIR__ . '/messages.txt';
+$lockedFile   = __DIR__ . '/locked_messages.txt';
 
-if (file_exists($messagesFile)) {
-    $lines = file($messagesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+// Load unlocked messages
+$unlockedMessages = [];
+if (file_exists($unlockedFile)) {
+    $lines = file($unlockedFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         $entry = json_decode($line, true);
         if ($entry) {
-            $messages[] = $entry;
+            $unlockedMessages[] = $entry;
+        }
+    }
+}
+
+// Load locked messages
+$lockedMessages = [];
+if (file_exists($lockedFile)) {
+    $lines = file($lockedFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        $entry = json_decode($line, true);
+        if ($entry) {
+            $lockedMessages[] = $entry;
         }
     }
 }
@@ -22,18 +37,26 @@ if (file_exists($messagesFile)) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- Force desktop mode for every device -->
+  <meta name="viewport" content="width=887">
   <title>Admin Panel - Received Messages</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- Theme Stylesheet: Default is Darkly (dark mode) -->
   <link id="themeStylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/darkly/bootstrap.min.css" rel="stylesheet">
   <!-- DataTables CSS -->
   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+  <!-- DataTables Responsive CSS -->
+  <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   
   <style>
-    /* Default dark mode styles */
+    /* Force a fixed container width and center it */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+    }
+    /* Default dark mode */
     body {
       background: #343a40;
       color: #fff;
@@ -46,26 +69,25 @@ if (file_exists($messagesFile)) {
     .table-container {
       margin-top: 1.5rem;
     }
-    /* Dark mode: search boxes use a dark background */
+    /* DataTables search input styling */
     table.dataTable thead .form-control {
       color: #fff;
       background-color: #495057;
       border: 1px solid #6c757d;
     }
-    /* Light mode: override search box styles with a brighter background */
     body.light-mode table.dataTable thead .form-control {
       color: #495057;
       background-color: #ffffff;
       border: 1px solid #ced4da;
     }
-    /* Hide search input for columns marked as no-search */
+    /* Hide inputs for no-search columns */
     th.no-search input {
       display: none;
     }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar with Theme Toggle -->
+  <!-- Navbar with Theme Toggle -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Admin Panel</a>
@@ -77,57 +99,71 @@ if (file_exists($messagesFile)) {
     </div>
   </nav>
   
+  <!-- Main Container -->
   <div class="container my-4">
     <h1 class="mb-4">Received Messages</h1>
     
-    <!-- Display import messages if available -->
-    <?php if(isset($_GET['import_success'])): ?>
-      <div class="alert alert-success"><?php echo htmlspecialchars($_GET['import_success']); ?></div>
-    <?php elseif(isset($_GET['import_error'])): ?>
-      <div class="alert alert-danger"><?php echo htmlspecialchars($_GET['import_error']); ?></div>
-    <?php endif; ?>
-    
-    <div class="mb-3">
-      <button id="refreshBtn" class="btn btn-primary me-2">
-        <i class="bi bi-arrow-clockwise"></i> Refresh
-      </button>
-      <button id="exportBtn" class="btn btn-success me-2">
-        <i class="bi bi-download"></i> Export CSV
-      </button>
-      <!-- New Import CSV button -->
-      <button id="importCsvBtn" class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#importCsvModal">
-        <i class="bi bi-upload"></i> Import CSV
-      </button>
-      <button id="deleteSelectedBtn" class="btn btn-warning me-2" disabled>
-        <i class="bi bi-trash"></i> Delete Selected
-      </button>
-      <button id="clearAllBtn" class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#confirmClearModal">
-        <i class="bi bi-trash-fill"></i> Clear All
-      </button>
-      <button id="clearOldest10Btn" class="btn btn-secondary me-2">
-        <i class="bi bi-clock-history"></i> Clear Oldest 10
-      </button>
-      <button id="clearOldest50Btn" class="btn btn-secondary">
-        <i class="bi bi-clock-history"></i> Clear Oldest 50
-      </button>
+    <!-- Top Controls in a responsive row -->
+    <div class="row g-2 mb-3">
+      <div class="col-6 col-md-auto">
+        <button id="refreshBtn" class="btn btn-primary w-100">
+          <i class="bi bi-arrow-clockwise"></i> Refresh
+        </button>
+      </div>
+      <div class="col-6 col-md-auto">
+        <button id="exportBtn" class="btn btn-success w-100">
+          <i class="bi bi-download"></i> Export CSV
+        </button>
+      </div>
+      <div class="col-6 col-md-auto">
+        <button id="importCsvBtn" class="btn btn-info w-100" data-bs-toggle="modal" data-bs-target="#importCsvModal">
+          <i class="bi bi-upload"></i> Import CSV
+        </button>
+      </div>
+      <div class="col-6 col-md-auto">
+        <button id="deleteSelectedBtn" class="btn btn-warning w-100" disabled>
+          <i class="bi bi-trash"></i> Delete Selected
+        </button>
+      </div>
+      <div class="col-6 col-md-auto">
+        <button id="lockSelectedBtn" class="btn btn-secondary w-100" disabled>
+          <i class="bi bi-lock-fill"></i> Lock Selected
+        </button>
+      </div>
+      <div class="col-6 col-md-auto">
+        <button id="clearAllBtn" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#confirmClearModal">
+          <i class="bi bi-trash-fill"></i> Clear All Unlocked
+        </button>
+      </div>
+      <div class="col-6 col-md-auto">
+        <button id="clearOldest10Btn" class="btn btn-secondary w-100">
+          <i class="bi bi-clock-history"></i> Clear Oldest 10 Unlocked
+        </button>
+      </div>
+      <div class="col-6 col-md-auto">
+        <button id="clearOldest50Btn" class="btn btn-secondary w-100">
+          <i class="bi bi-clock-history"></i> Clear Oldest 50 Unlocked
+        </button>
+      </div>
     </div>
     
-    <?php if (empty($messages)): ?>
-      <div class="alert alert-info">No messages received yet.</div>
+    <!-- Unlocked Messages Table -->
+    <h2>Unlocked Messages</h2>
+    <?php if (empty($unlockedMessages)): ?>
+      <div class="alert alert-info">No unlocked messages.</div>
     <?php else: ?>
       <div class="table-responsive table-container">
-        <table id="messagesTable" class="table table-striped table-bordered">
+        <table id="unlockedTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;">
           <thead>
-            <!-- Header row with checkboxes for manual deletion -->
             <tr>
-              <th class="no-search"><input type="checkbox" id="selectAll"></th>
+              <th class="no-search"><input type="checkbox" id="selectAllUnlocked"></th>
               <th>Time</th>
               <th>Name</th>
               <th>Email</th>
               <th>Telephone</th>
               <th>Message</th>
+              <th class="no-search">Actions</th>
             </tr>
-            <!-- Header row with column-specific search inputs -->
             <tr>
               <th class="no-search"></th>
               <th><input type="text" class="form-control form-control-sm" placeholder="Search Time"></th>
@@ -135,36 +171,84 @@ if (file_exists($messagesFile)) {
               <th><input type="text" class="form-control form-control-sm" placeholder="Search Email"></th>
               <th><input type="text" class="form-control form-control-sm" placeholder="Search Telephone"></th>
               <th><input type="text" class="form-control form-control-sm" placeholder="Search Message"></th>
+              <th class="no-search"></th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach ($messages as $msg): ?>
+            <?php foreach ($unlockedMessages as $msg): ?>
               <tr data-message-id="<?= htmlspecialchars($msg['id']) ?>">
-                <td><input type="checkbox" class="select-entry" value="<?= htmlspecialchars($msg['id']) ?>"></td>
+                <td><input type="checkbox" class="select-entry-unlocked" value="<?= htmlspecialchars($msg['id']) ?>"></td>
                 <td><?= htmlspecialchars($msg['time']) ?></td>
                 <td><?= htmlspecialchars($msg['name']) ?></td>
                 <td><?= htmlspecialchars($msg['email']) ?></td>
                 <td><?= htmlspecialchars($msg['tel']) ?></td>
                 <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
+                <td>
+                  <button class="btn btn-sm btn-secondary lock-btn" data-id="<?= htmlspecialchars($msg['id']) ?>">Lock</button>
+                </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
       </div>
     <?php endif; ?>
+    
+    <!-- Locked Messages Table -->
+    <h2 class="mt-5">Locked Messages</h2>
+    <?php if (empty($lockedMessages)): ?>
+      <div class="alert alert-info">No locked messages.</div>
+    <?php else: ?>
+      <div class="table-responsive table-container">
+        <table id="lockedTable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%;">
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Telephone</th>
+              <th>Message</th>
+              <th class="no-search">Actions</th>
+            </tr>
+            <tr>
+              <th><input type="text" class="form-control form-control-sm" placeholder="Search Time"></th>
+              <th><input type="text" class="form-control form-control-sm" placeholder="Search Name"></th>
+              <th><input type="text" class="form-control form-control-sm" placeholder="Search Email"></th>
+              <th><input type="text" class="form-control form-control-sm" placeholder="Search Telephone"></th>
+              <th><input type="text" class="form-control form-control-sm" placeholder="Search Message"></th>
+              <th class="no-search"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php foreach ($lockedMessages as $msg): ?>
+              <tr data-message-id="<?= htmlspecialchars($msg['id']) ?>">
+                <td><?= htmlspecialchars($msg['time']) ?></td>
+                <td><?= htmlspecialchars($msg['name']) ?></td>
+                <td><?= htmlspecialchars($msg['email']) ?></td>
+                <td><?= htmlspecialchars($msg['tel']) ?></td>
+                <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
+                <td>
+                  <button class="btn btn-sm btn-danger unlock-btn" data-id="<?= htmlspecialchars($msg['id']) ?>">Unlock</button>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+    <?php endif; ?>
+    
   </div>
   
-  <!-- Clear All Confirmation Modal -->
+  <!-- Confirm Clear Unlocked Modal -->
   <div class="modal fade" id="confirmClearModal" tabindex="-1" aria-labelledby="confirmClearModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <form id="clearForm">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="confirmClearModalLabel">Confirm Clear All Messages</h5>
+            <h5 class="modal-title" id="confirmClearModalLabel">Confirm Clear All Unlocked Messages</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Are you sure you want to clear <strong>all</strong> messages? This action cannot be undone.
+            Are you sure you want to clear all unlocked messages? This action cannot be undone.
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -189,7 +273,9 @@ if (file_exists($messagesFile)) {
               <label for="csvFileInput" class="form-label">Select CSV file</label>
               <input type="file" class="form-control" id="csvFileInput" name="csv_file" accept=".csv" required>
             </div>
-            <p class="small text-muted">The CSV file should have the following columns in order: Time, Name, Email, Telephone, Message. The header row is optional.</p>
+            <p class="small text-muted">
+              The CSV file should have columns in order: Time, Name, Email, Telephone, Message, and optionally Locked (Yes/No).
+            </p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -200,22 +286,21 @@ if (file_exists($messagesFile)) {
     </div>
   </div>
   
-  <!-- jQuery (required for DataTables) -->
+  <!-- jQuery, Bootstrap JS, DataTables, and Responsive JS -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Bootstrap JS Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- DataTables JS -->
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.4.1/js/responsive.bootstrap5.min.js"></script>
   
   <script>
     $(document).ready(function(){
-      // Initialize DataTable with column-specific search inputs
-      var table = $('#messagesTable').DataTable({
+      // Initialize unlocked messages table with Responsive extension
+      var unlockedTable = $('#unlockedTable').DataTable({
         order: [[1, 'desc']],
-        columnDefs: [
-          { orderable: false, targets: 0 }
-        ],
+        responsive: true,
+        columnDefs: [{ orderable: false, targets: 0 }],
         language: {
           search: "Global Search:",
           lengthMenu: "Display _MENU_ messages per page",
@@ -225,31 +310,45 @@ if (file_exists($messagesFile)) {
           infoFiltered: "(filtered from _MAX_ total messages)"
         }
       });
-      
-      // Apply column search using header inputs
-      $('#messagesTable thead input').on('keyup change', function () {
+      $('#unlockedTable thead input').on('keyup change', function () {
         var colIndex = $(this).parent().index();
-        table.column(colIndex).search(this.value).draw();
+        unlockedTable.column(colIndex).search(this.value).draw();
       });
       
-      // Select/Deselect all checkboxes
-      $('#selectAll').on('change', function(){
-        var checked = $(this).is(':checked');
-        $('.select-entry').prop('checked', checked);
-        toggleDeleteSelectedBtn();
-      });
-      
-      // Toggle delete button based on checkbox selection
-      $(document).on('change', '.select-entry', function(){
-        if(!$(this).is(':checked')){
-          $('#selectAll').prop('checked', false);
+      // Initialize locked messages table with Responsive extension
+      var lockedTable = $('#lockedTable').DataTable({
+        order: [[0, 'desc']],
+        responsive: true,
+        language: {
+          search: "Global Search:",
+          lengthMenu: "Display _MENU_ messages per page",
+          zeroRecords: "No matching messages found",
+          info: "Showing page _PAGE_ of _PAGES_",
+          infoEmpty: "No messages available",
+          infoFiltered: "(filtered from _MAX_ total messages)"
         }
-        toggleDeleteSelectedBtn();
+      });
+      $('#lockedTable thead input').on('keyup change', function () {
+        var colIndex = $(this).parent().index();
+        lockedTable.column(colIndex).search(this.value).draw();
       });
       
-      function toggleDeleteSelectedBtn(){
-        var anyChecked = $('.select-entry:checked').length > 0;
+      // Unlocked checkboxes: select/deselect and update action buttons
+      $('#selectAllUnlocked').on('change', function(){
+        var checked = $(this).is(':checked');
+        $('.select-entry-unlocked').prop('checked', checked);
+        toggleActionButtons();
+      });
+      $(document).on('change', '.select-entry-unlocked', function(){
+        if(!$(this).is(':checked')){
+          $('#selectAllUnlocked').prop('checked', false);
+        }
+        toggleActionButtons();
+      });
+      function toggleActionButtons(){
+        var anyChecked = $('.select-entry-unlocked:checked').length > 0;
         $('#deleteSelectedBtn').prop('disabled', !anyChecked);
+        $('#lockSelectedBtn').prop('disabled', !anyChecked);
       }
       
       // Refresh button
@@ -262,17 +361,17 @@ if (file_exists($messagesFile)) {
         window.location.href = 'export.php';
       });
       
-      // Delete Selected button – AJAX call to delete_entries.php
+      // Delete Selected unlocked messages
       $('#deleteSelectedBtn').on('click', function(){
         var selectedIds = [];
-        $('.select-entry:checked').each(function(){
+        $('.select-entry-unlocked:checked').each(function(){
           selectedIds.push($(this).val());
         });
         if(selectedIds.length === 0){
           alert('No entries selected.');
           return;
         }
-        if(!confirm('Are you sure you want to delete the selected entries?')){
+        if(!confirm('Are you sure you want to delete the selected unlocked messages?')){
           return;
         }
         $.ajax({
@@ -281,92 +380,170 @@ if (file_exists($messagesFile)) {
           dataType: 'json',
           contentType: 'application/json',
           data: JSON.stringify({ids: selectedIds}),
-          success: function(response) {
-            if(response.success) {
+          success: function(response){
+            if(response.success){
               location.reload();
             } else {
-              alert('Failed to delete selected entries.');
+              alert('Failed to delete selected messages.');
             }
           },
-          error: function() {
+          error: function(){
             alert('Error communicating with server.');
           }
         });
       });
       
-      // Clear All form submission via AJAX
+      // Lock Selected unlocked messages
+      $('#lockSelectedBtn').on('click', function(){
+        var selectedIds = [];
+        $('.select-entry-unlocked:checked').each(function(){
+          selectedIds.push($(this).val());
+        });
+        if(selectedIds.length === 0){
+          alert('No entries selected.');
+          return;
+        }
+        if(!confirm('Are you sure you want to lock the selected messages? They will be moved to the locked list.')){
+          return;
+        }
+        $.ajax({
+          url: 'lock_entry.php',
+          method: 'POST',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({ids: selectedIds}),
+          success: function(response){
+            if(response.success){
+              location.reload();
+            } else {
+              alert('Failed to lock selected messages.');
+            }
+          },
+          error: function(){
+            alert('Error communicating with server.');
+          }
+        });
+      });
+      
+      // Clear All Unlocked
       $('#clearForm').on('submit', function(e){
         e.preventDefault();
         $.ajax({
           url: 'delete_all.php',
           method: 'POST',
           dataType: 'json',
-          success: function(response) {
-            if(response.success) {
+          success: function(response){
+            if(response.success){
               location.reload();
             } else {
-              alert('Failed to clear messages.');
+              alert('Failed to clear unlocked messages.');
             }
           },
-          error: function() {
+          error: function(){
             alert('Error communicating with server.');
           }
         });
       });
       
-      // Clear Oldest 10 button
+      // Clear Oldest 10 Unlocked
       $('#clearOldest10Btn').on('click', function(){
-        if(confirm('Are you sure you want to clear the oldest 10 messages?')){
+        if(confirm('Are you sure you want to clear the oldest 10 unlocked messages?')){
           $.ajax({
             url: 'delete_oldest.php',
             method: 'POST',
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify({limit: 10}),
-            success: function(response) {
-              if(response.success) {
+            success: function(response){
+              if(response.success){
                 location.reload();
               } else {
-                alert('Failed to clear oldest 10 messages.');
+                alert('Failed to clear oldest 10 unlocked messages.');
               }
             },
-            error: function() {
+            error: function(){
               alert('Error communicating with server.');
             }
           });
         }
       });
       
-      // Clear Oldest 50 button
+      // Clear Oldest 50 Unlocked
       $('#clearOldest50Btn').on('click', function(){
-        if(confirm('Are you sure you want to clear the oldest 50 messages?')){
+        if(confirm('Are you sure you want to clear the oldest 50 unlocked messages?')){
           $.ajax({
             url: 'delete_oldest.php',
             method: 'POST',
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify({limit: 50}),
-            success: function(response) {
-              if(response.success) {
+            success: function(response){
+              if(response.success){
                 location.reload();
               } else {
-                alert('Failed to clear oldest 50 messages.');
+                alert('Failed to clear oldest 50 unlocked messages.');
               }
             },
-            error: function() {
+            error: function(){
               alert('Error communicating with server.');
             }
           });
         }
       });
       
-      // Theme Toggle Logic
+      // Lock a single message from unlocked table
+      $(document).on('click', '.lock-btn', function(){
+        var id = $(this).data('id');
+        if(confirm('Lock this message? It will be protected from deletion.')){
+          $.ajax({
+            url: 'lock_entry.php',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({id: id}),
+            success: function(response){
+              if(response.success){
+                location.reload();
+              } else {
+                alert('Failed to lock the message.');
+              }
+            },
+            error: function(){
+              alert('Error communicating with server.');
+            }
+          });
+        }
+      });
+      
+      // Unlock a single message from locked table
+      $(document).on('click', '.unlock-btn', function(){
+        var id = $(this).data('id');
+        if(confirm('Are you sure you want to unlock this message?')){
+          $.ajax({
+            url: 'unlock_entry.php',
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({id: id}),
+            success: function(response){
+              if(response.success){
+                location.reload();
+              } else {
+                alert('Failed to unlock the message.');
+              }
+            },
+            error: function(){
+              alert('Error communicating with server.');
+            }
+          });
+        }
+      });
+      
+      // Theme toggle logic
       const darkTheme = "https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/darkly/bootstrap.min.css";
       const lightTheme = "https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/flatly/bootstrap.min.css";
       const themeBtn = $("#themeToggleBtn");
       const themeStylesheet = $("#themeStylesheet");
-      
-      // On page load, check localStorage for a saved theme and update the body class accordingly
       const currentTheme = localStorage.getItem('theme') || 'dark';
       if(currentTheme === 'light'){
         themeStylesheet.attr('href', lightTheme);
@@ -375,8 +552,6 @@ if (file_exists($messagesFile)) {
       } else {
         $("body").removeClass("light-mode");
       }
-      
-      // Toggle theme on button click and update body class for light mode styles
       themeBtn.on('click', function(){
         if(themeStylesheet.attr('href') === darkTheme){
           themeStylesheet.attr('href', lightTheme);
@@ -390,6 +565,7 @@ if (file_exists($messagesFile)) {
           $("body").removeClass("light-mode");
         }
       });
+      
     });
   </script>
 </body>

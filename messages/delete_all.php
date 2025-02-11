@@ -12,14 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$messagesFile = __DIR__ . '/messages.txt';
+$unlockedFile = __DIR__ . '/messages.txt';
 
-if (!file_exists($messagesFile)) {
+if (!file_exists($unlockedFile)) {
     echo json_encode(["success" => true, "message" => "No messages to clear."]);
     exit;
 }
 
-$result = file_put_contents($messagesFile, '');
+$result = file_put_contents($unlockedFile, '');
 if ($result === false) {
     http_response_code(500);
     echo json_encode(["error" => "Failed to clear messages."]);

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = file_get_contents('php://input');
-$data = json_decode($input, true);
+$data  = json_decode($input, true);
 
 if (!$data || !isset($data['ids']) || !is_array($data['ids'])) {
     http_response_code(400);
@@ -22,26 +22,24 @@ if (!$data || !isset($data['ids']) || !is_array($data['ids'])) {
 }
 
 $idsToDelete = $data['ids'];
-$messagesFile = __DIR__ . '/messages.txt';
+$unlockedFile = __DIR__ . '/messages.txt';
 
-if (!file_exists($messagesFile)) {
+if (!file_exists($unlockedFile)) {
     echo json_encode(["success" => true, "message" => "No messages found."]);
     exit;
 }
 
-$lines = file($messagesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$lines = file($unlockedFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 $remainingLines = [];
 foreach ($lines as $line) {
     $entry = json_decode($line, true);
-    if ($entry && isset($entry['id'])) {
-        if (in_array($entry['id'], $idsToDelete)) {
-            continue;
-        }
+    if ($entry && isset($entry['id']) && in_array($entry['id'], $idsToDelete)) {
+        continue;
     }
     $remainingLines[] = $line;
 }
 
-$result = file_put_contents($messagesFile, implode("\n", $remainingLines) . "\n", LOCK_EX);
+$result = file_put_contents($unlockedFile, implode("\n", $remainingLines) . (count($remainingLines) > 0 ? "\n" : ""), LOCK_EX);
 if ($result === false) {
     http_response_code(500);
     echo json_encode(["error" => "Failed to delete entries."]);

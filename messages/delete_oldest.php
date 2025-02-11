@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $input = file_get_contents('php://input');
-$data = json_decode($input, true);
+$data  = json_decode($input, true);
 
 if (!$data || !isset($data['limit']) || !is_numeric($data['limit'])) {
     http_response_code(400);
@@ -28,26 +28,24 @@ if ($limit <= 0) {
     exit;
 }
 
-$messagesFile = __DIR__ . '/messages.txt';
+$unlockedFile = __DIR__ . '/messages.txt';
 
-if (!file_exists($messagesFile)) {
+if (!file_exists($unlockedFile)) {
     echo json_encode(["success" => true, "message" => "No messages found."]);
     exit;
 }
 
-// Read all lines, skipping empty ones.
-$lines = file($messagesFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$lines = file($unlockedFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 $total = count($lines);
-
 if ($total === 0) {
     echo json_encode(["success" => true, "message" => "No messages found."]);
     exit;
 }
 
-// Remove the first $limit lines (oldest entries).
+// Remove first $limit lines
 $remainingLines = array_slice($lines, $limit);
 
-$result = file_put_contents($messagesFile, implode("\n", $remainingLines) . (count($remainingLines) > 0 ? "\n" : ""), LOCK_EX);
+$result = file_put_contents($unlockedFile, implode("\n", $remainingLines) . (count($remainingLines) > 0 ? "\n" : ""), LOCK_EX);
 if ($result === false) {
     http_response_code(500);
     echo json_encode(["error" => "Failed to delete oldest entries."]);
