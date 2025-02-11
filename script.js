@@ -206,3 +206,33 @@ sendButton.addEventListener("click", function(e) {
     showToast("Error: Could not send message.", "error");
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Hamburger menu toggle
+  const hamburgerMenu = document.getElementById('hamburger-menu');
+  const menuOverlay = document.getElementById('menu-overlay');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  hamburgerMenu.addEventListener('click', () => {
+    // Toggle active class on hamburger button
+    hamburgerMenu.classList.toggle('active');
+    // Toggle a class on body to open/close the menu overlay
+    document.body.classList.toggle('menu-open');
+  });
+
+  // Close the menu when an overlay click occurs
+  menuOverlay.addEventListener('click', () => {
+    hamburgerMenu.classList.remove('active');
+    document.body.classList.remove('menu-open');
+  });
+
+  // Close the menu when any nav link is clicked
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      hamburgerMenu.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    });
+  });
+
+  // … (the rest of your existing DOMContentLoaded code)
+});

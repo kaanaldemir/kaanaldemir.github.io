@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 /* -----------------------------------
@@ -158,7 +159,7 @@ nav {
   .nav-links a {
     padding: 1rem;
     margin: 0;
-    border-top: 1px solid #FFFFFF;
+    border-top: 1px outset #7ee78740;
   }
   #nav-toggle:checked ~ .nav-links {
     display: flex;
@@ -433,11 +434,12 @@ a:hover {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px outset #777;
   border-radius: 4px;
   background-color: var(--input-background);
   color: var(--text-color);
   font-size: 1rem;
+  resize: none;
 }
 
 .contact-form input:focus,
@@ -507,4 +509,100 @@ a:hover {
 @keyframes fadeout {
   from { opacity: 1; transform: translateY(0); }
   to { opacity: 0; transform: translateY(20px); }
+}
+
+/******************************************************
+ * HAMBURGER MENU (Advanced Animated Version)
+ ******************************************************/
+ .hamburger-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* Visible only on mobile */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  z-index: 2000; /* Make sure it’s above the nav overlay */
+}
+
+.hamburger-menu .bar {
+  width: 100%;
+  height: 3px;
+  background-color: #fff;  /* Adjust if needed (or use a CSS variable) */
+  border-radius: 2px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Transform bars into an “X” when active */
+.hamburger-menu.active .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.hamburger-menu.active .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu.active .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile navigation adjustments */
+@media (max-width: 1080px) {
+  .hamburger-menu {
+    display: flex;
+  }
+  /* Hide default nav-links from the header flow and make them a fixed overlay */
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -300px; /* Initially hidden (off-screen) */
+    width: 300px;
+    height: 100vh;
+    background-color: var(--header-background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: right 0.3s ease-in-out;
+    z-index: 1500;
+  }
+  .nav-links a {
+    color: #dddddd;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    border-top: 1px outset #7ee78740;
+    transition: background-color 0.3s ease;
+  }
+  .nav-links a:hover {
+    background-color: var(--hover-color);
+  }
+  /* When the menu is open, slide the nav-links into view */
+  body.menu-open .nav-links {
+    right: 0;
+  }
+}
+
+/******************************************************
+ * MENU OVERLAY
+ ******************************************************/
+#menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* When menu is open, display the overlay */
+body.menu-open #menu-overlay {
+  display: block;
+  opacity: 1;
 }
