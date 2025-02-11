@@ -40,7 +40,7 @@ if ($name === '' && $email === '' && $tel === '') {
 
 $entry = [
     'id'      => uniqid(),
-    'time'    => date('Y-m-d H:i:s', time() + 3 * 3600),
+    'time'    => date('d-m-Y H:i:s', time() + 3 * 3600),
     'name'    => $name,
     'email'   => $email,
     'tel'     => $tel,

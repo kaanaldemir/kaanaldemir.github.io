@@ -1,11 +1,23 @@
 <?php
-
-
 // index.php
 
 // Disable error reporting for production
 ini_set('display_errors', 0);
 error_reporting(0);
+
+// Helper function to check if a field is a placeholder
+function getFieldClass($field, $value) {
+    if ($field === 'name' && $value === 'John Doe') {
+        return 'placeholder-text';
+    }
+    if ($field === 'email' && $value === 'john@doe.com') {
+        return 'placeholder-text';
+    }
+    if ($field === 'tel' && substr($value, -10) === '5555555555') {
+        return 'placeholder-text';
+    }
+    return '';
+}
 
 // Define file paths for unlocked and locked messages
 $unlockedFile = __DIR__ . '/messages.txt';
@@ -39,8 +51,8 @@ if (file_exists($lockedFile)) {
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- Force desktop mode for every device -->
-  <meta name="viewport" content="width=887">
+  <!-- Updated viewport: responsive on mobile, with a minimum width enforced via CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin Panel - Received Messages</title>
   
   <!-- Theme Stylesheet: Default is Darkly (dark mode) -->
@@ -53,13 +65,15 @@ if (file_exists($lockedFile)) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   
   <style>
-    /* Force a fixed container width and center it */
+    /* Force a fixed container width (with a minimum of 900px) and center it */
     .container {
       max-width: 1360px;
       margin: 0 auto;
+      min-width: 900px; /* Minimum width of 900px */
     }
-    /* Default dark mode */
+    /* Ensure the body also does not shrink below 900px */
     body {
+      min-width: 900px;
       background: #343a40;
       color: #fff;
     }
@@ -85,6 +99,16 @@ if (file_exists($lockedFile)) {
     /* Hide inputs for no-search columns */
     th.no-search input {
       display: none;
+    }
+    
+    /* Placeholder text styling */
+    /* Dark mode (when body does NOT have light-mode) */
+    body:not(.light-mode) .placeholder-text {
+      color: #6c757d !important;
+    }
+    /* Light mode */
+    body.light-mode .placeholder-text {
+      color: #adb5bd !important;
     }
   </style>
 </head>
@@ -181,9 +205,15 @@ if (file_exists($lockedFile)) {
               <tr data-message-id="<?= htmlspecialchars($msg['id']) ?>">
                 <td><input type="checkbox" class="select-entry-unlocked" value="<?= htmlspecialchars($msg['id']) ?>"></td>
                 <td><?= htmlspecialchars($msg['time']) ?></td>
-                <td><?= htmlspecialchars($msg['name']) ?></td>
-                <td><?= htmlspecialchars($msg['email']) ?></td>
-                <td><?= htmlspecialchars($msg['tel']) ?></td>
+                <td class="<?= getFieldClass('name', $msg['name']) ?>">
+                  <?= htmlspecialchars($msg['name']) ?>
+                </td>
+                <td class="<?= getFieldClass('email', $msg['email']) ?>">
+                  <?= htmlspecialchars($msg['email']) ?>
+                </td>
+                <td class="<?= getFieldClass('tel', $msg['tel']) ?>">
+                  <?= htmlspecialchars($msg['tel']) ?>
+                </td>
                 <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
                 <td>
                   <button class="btn btn-sm btn-secondary lock-btn" data-id="<?= htmlspecialchars($msg['id']) ?>">Lock</button>
@@ -224,9 +254,15 @@ if (file_exists($lockedFile)) {
             <?php foreach ($lockedMessages as $msg): ?>
               <tr data-message-id="<?= htmlspecialchars($msg['id']) ?>">
                 <td><?= htmlspecialchars($msg['time']) ?></td>
-                <td><?= htmlspecialchars($msg['name']) ?></td>
-                <td><?= htmlspecialchars($msg['email']) ?></td>
-                <td><?= htmlspecialchars($msg['tel']) ?></td>
+                <td class="<?= getFieldClass('name', $msg['name']) ?>">
+                  <?= htmlspecialchars($msg['name']) ?>
+                </td>
+                <td class="<?= getFieldClass('email', $msg['email']) ?>">
+                  <?= htmlspecialchars($msg['email']) ?>
+                </td>
+                <td class="<?= getFieldClass('tel', $msg['tel']) ?>">
+                  <?= htmlspecialchars($msg['tel']) ?>
+                </td>
                 <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
                 <td>
                   <button class="btn btn-sm btn-danger unlock-btn" data-id="<?= htmlspecialchars($msg['id']) ?>">Unlock</button>
