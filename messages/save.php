@@ -49,7 +49,7 @@ $entry = [
 
 $entry_line = json_encode($entry) . "\n";
 
-$messagesFile = __DIR__ . '/messages/messages.txt';
+$messagesFile = __DIR__ . '/messages.txt';
 
 // If file exists and is not empty, ensure it ends with a newline.
 if (file_exists($messagesFile) && filesize($messagesFile) > 0) {
