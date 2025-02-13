@@ -1,534 +1,192 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Kaan Aldemir</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Meta Description for SEO -->
-  <meta name="description" content="Kaan Aldemir's professional portfolio. Explore my work experience, projects, skills, and contact information." />
-
-  <!-- Structured Data for SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Kaan Aldemir",
-    "jobTitle": "Computer Engineer",
-    "url": "https://kaanaldemir.com/",
-    "sameAs": [
-      "https://linkedin.com/in/kaan-aldemir",
-      "https://github.com/kaanaldemir"
-    ],
-    "email": "mailto:kaanaldemir1608@gmail.com",
-    "telephone": "+90 534 780 6600",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Küçükçekmece",
-      "addressRegion": "İstanbul",
-      "addressCountry": "Turkey"
-    }
+<meta charset="UTF-8" />
+<title>Kaan Aldemir</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Kaan Aldemir's professional portfolio. Explore my work experience, projects, skills, and contact information." />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Kaan Aldemir",
+  "jobTitle": "Computer Engineer",
+  "url": "https://kaanaldemir.com/",
+  "sameAs": [
+    "https://linkedin.com/in/kaan-aldemir",
+    "https://github.com/kaanaldemir"
+  ],
+  "email": "mailto:kaanaldemir1608@gmail.com",
+  "telephone": "+90 534 780 6600",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Küçükçekmece",
+    "addressRegion": "İstanbul",
+    "addressCountry": "Turkey"
   }
-  </script>
-
-   <!-- Favicon links -->
-  <link rel="icon" type="image/png" sizes="16x16" href="web/16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="web/32.png">
-  <link rel="icon" type="image/png" sizes="96x96" href="web/96.png">
-
-  <!-- Local Font Awesome -->
-  <link rel="stylesheet" href="awesome/css/all.min.css" />
-
-  <!-- External CSS -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Inline styles for email & telephone groups -->
-  <style>
-    .email-group,
-    .tel-group {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-    /* Fixed width for country code input */
-    .tel-group input#msgCountryCode {
-      width: 50px;
-      text-align: center;
-    }
-    /* Telephone number input width */
-    .tel-group input#msgTel {
-      width: 400px;
-    }
-  </style>
+}
+</script>
+<link rel="icon" type="image/png" sizes="16x16" href="web/16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="web/32.png">
+<link rel="preload" href="awesome/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="awesome/css/all.min.css"></noscript>
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header / Navigation -->
-  <header>
-    <nav>
-      <div class="container nav-container">
-        <div class="logo">
-          <h1 class="main-header">Kaan Aldemir</h1>
-        </div>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle" />
-        <label for="nav-toggle" class="nav-toggle-label">
-          <span></span>
-        </label>
-        <div class="nav-links">
-          <a href="#objective"><i class="fa fa-bullseye"></i> Objective</a>
-          <a href="#experience"><i class="fa fa-briefcase"></i> Experience</a>
-          <a href="#projects"><i class="fa fa-tasks"></i> Projects</a>
-          <a href="#skills"><i class="fa fa-tools"></i> Skills</a>
-          <a href="#education"><i class="fa fa-graduation-cap"></i> Education</a>
-          <a href="#contact"><i class="fa fa-envelope"></i> Contact</a>
-          <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer" class="view-cv">
-            <i class="fa fa-file"></i> View CV
-          </a>
-        </div>
-      </div>
-    </nav>
-  </header>
+<header>
+<nav>
+<div class="container nav-container">
+<div class="logo">
+<h1 class="main-header">Kaan Aldemir</h1>
+</div>
+<button id="hamburger-menu" class="hamburger-menu" aria-label="Toggle Navigation">
+<span class="bar"></span>
+<span class="bar"></span>
+<span class="bar"></span>
+</button>
+<div class="nav-links">
+<a href="#objective"><i class="fa fa-bullseye"></i> Objective</a>
+<a href="#experience"><i class="fa fa-briefcase"></i> Experience</a>
+<a href="#projects"><i class="fa fa-tasks"></i> Projects</a>
+<a href="#skills"><i class="fa fa-tools"></i> Skills</a>
+<a href="#education"><i class="fa fa-graduation-cap"></i> Education</a>
+<a href="#contact"><i class="fa fa-envelope"></i> Contact</a>
+<a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer" class="view-cv"><i class="fa fa-file"></i> View CV</a>
+</div>
+</div>
+</nav>
+</header>
+<div id="menu-overlay"></div>
+<section class="hero">
+<div class="container">
+<a href="https://github.com/kaanaldemir" target="_blank">
+<img src="me.avif" alt="Photo of Kaan Aldemir" class="profile-pic" />
+</a>
+<h2>Hello, I'm <span class="highlight">Kaan Aldemir</span></h2>
+<p id="typewriterText">Computer Engineer passionate about leveraging technology to solve real-world problems.</p>
+<div class="hero-contacts">
+<a href="https://github.com/kaanaldemir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/kaan-aldemir" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+<a href="mailto:kaanaldemir1608@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
+<a href="https://www.instagram.com/kaanaldemir" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+<a href="tel:+905347806600" title="Call"><i class="fa fa-phone"></i></a>
+<a href="https://wa.me/905347806600" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer" title="View CV"><i class="fa fa-file"></i></a>
+</div>
+</div>
+</section>
+<section class="content-section card-to-animate" id="objective">
+<div class="container card">
+<h3>Objective</h3>
+<p>As a computer engineer, I am looking for opportunities to improve and reach my true potential. I strongly believe in activating my potential in a real work environment with mentoring opportunities.</p>
+</div>
+</section>
+<section class="content-section card-to-animate" id="experience">
+<div class="container card">
+<h3>Work Experience</h3>
+<div class="job">
+<h4>HOMETECH R&amp;D Department — Computer Engineer</h4>
+<p><em>Küçükçekmece/İstanbul — June 2024/Present</em></p>
+<ul>
+<li>Developed an Android application for the National Roaming Project.</li>
+<li>Created image processing modules using Python for an ophthalmology project.</li>
+</ul>
+</div>
+<div class="job">
+<h4>Megaprint — Document Translator</h4>
+<p><em>Esenyurt/İstanbul — November 2023/February 2024</em></p>
+<ul>
+<li>Translated machine user manuals from English to Turkish, ensuring accuracy and technical clarity.</li>
+</ul>
+</div>
+</div>
+</section>
+<section class="content-section card-to-animate" id="projects">
+<div class="container card">
+<h3>Projects</h3>
+<ul>
+<li><strong>Dissertation:</strong> Chest X-Ray AI for pneumonia over web and mobile</li>
+<li><strong>Router-based Personal Website:</strong> Reverse proxy on OpenWRT, GCP, DuckDNS, Tailscale</li>
+<li><strong>Custom Image Processing Tool:</strong> Luminance manipulation</li>
+<li><strong>Ticket Selling Automation</strong></li>
+<li><strong>PC Game:</strong> Hill Climb clone</li>
+<li><strong>Keylogger:</strong> Sends logs via email</li>
+<li><strong>Mobile Math App:</strong> Teaching math to children</li>
+<li><strong>Textile Automation</strong></li>
+</ul>
+</div>
+</section>
+<section class="content-section card-to-animate" id="skills">
+<div class="container card">
+<h3>Skills</h3>
+<ul>
+<li><strong>Kotlin (Android Studio)</strong></li>
+<li><strong>Java (Android Studio)</strong></li>
+<li><strong>Python:</strong> Image Processing, GUI Creation, Customized Tools</li>
+<li><strong>Networking &amp; Deployment:</strong> Self-Hosting, GCP VPS, Tailscale, DDNS, OpenWRT</li>
+<li><strong>Languages:</strong> English (C1 level)</li>
+</ul>
+</div>
+</section>
+<section class="content-section card-to-animate" id="education">
+<div class="container card">
+<h3>Education</h3>
+<p><strong>Namık Kemal University</strong> — Computer Engineering (2016–2021)</p>
+</div>
+</section>
+<section class="content-section card-to-animate" id="contact">
+<div class="container card contact-wrapper">
+<div class="contact-info">
+<h3>Contact</h3>
+<p><i class="fab fa-github"></i> <strong>GitHub:</strong> <a href="https://github.com/kaanaldemir" target="_blank">github.com/kaanaldemir</a></p>
+<p><i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/kaan-aldemir" target="_blank">linkedin.com/in/kaan-aldemir</a></p>
+<p><i class="fa fa-envelope"></i> <strong>Email:</strong> <a href="mailto:kaanaldemir1608@gmail.com">kaanaldemir1608@gmail.com</a></p>
+<p><i class="fab fa-instagram"></i> <strong>Instagram:</strong> <a href="https://www.instagram.com/kaanaldemir" target="_blank">instagram.com/kaanaldemir</a></p>
+<p><i class="fa fa-phone"></i> <strong>Tel:</strong> <a href="tel:+905347806600">+90 534 780 6600</a></p>
+<p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> <a href="https://wa.me/905347806600">+90 534 780 6600</a></p>
+<p><i class="fa fa-file"></i> <strong>View CV:</strong> <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer">Kaan Aldemir - CV.pdf</a></p>
+</div>
+<div class="contact-form">
+<h3>Send a Message</h3>
+<div class="form-row">
+<input type="text" id="msgName" placeholder="John Doe" maxlength="50" />
+<div class="email-group">
+<input type="text" id="msgEmail1" placeholder="john" maxlength="50" />
+<span>@</span>
+<input type="text" id="msgEmail2" placeholder="doe.com" maxlength="50" />
+</div>
+<div class="tel-group">
+<input type="text" id="msgCountryCode" value="+90" maxlength="5" pattern="^\+?[0-9]{1,5}$" />
+<input type="text" id="msgTel" placeholder="5555555555" maxlength="10" pattern="[0-9]{10}" />
+</div>
+</div>
+<div class="form-row">
+<textarea id="msgText" placeholder="Let's hear it!" maxlength="500"></textarea>
+</div>
+<button id="sendButton" disabled>Send Message</button>
+</div>
+</div>
+</section>
+<section class="content-section card-to-animate" id="about-site">
+<div class="container card note">
+<h3>About This Site</h3>
+<p>This website is intentionally designed to be minimal and lightweight. It is hosted on an OpenWRT router with limited resources, demonstrating resourcefulness. By leveraging Tailscale and GCP, this site remains accessible, secure, and efficient.</p>
+</div>
+</section>
+<footer>
+<div class="container">
+<p>&copy; 2025 Kaan Aldemir. All rights reserved.</p>
+</div>
+</footer>
+<div id="toast-container"></div>
+<button id="themeToggleBtn" class="theme-toggle-btn"><i class="fa fa-moon"></i></button>
+<div class="scroll-buttons-container">
+<button id="upButton" class="scroll-button"><i class="fa fa-arrow-up"></i></button>
+<button id="downButton" class="scroll-button"><i class="fa fa-arrow-down"></i></button>
+</div>
+<script src="script.js"></script>
+<script>
 
-  <!-- Hero / Intro Section -->
-  <section class="hero">
-    <div class="container">
-      <a href="https://github.com/kaanaldemir" target="_blank">
-        <img src="me.avif" alt="Photo of Kaan Aldemir" class="profile-pic" />
-      </a>
-      <h2>Hello, I'm <span class="highlight">Kaan Aldemir</span></h2>
-      <p id="typewriterText">Computer Engineer passionate about leveraging technology to solve real-world problems.</p>
-      <!-- Reordered hero contacts -->
-      <div class="hero-contacts">
-        <a href="https://github.com/kaanaldemir" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/in/kaan-aldemir" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        <a href="mailto:kaanaldemir1608@gmail.com" title="Email"><i class="fa fa-envelope"></i></a>
-        <a href="https://www.instagram.com/kaanaldemir" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="tel:+905347806600" title="Call"><i class="fa fa-phone"></i></a>
-        <a href="https://wa.me/905347806600" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer" title="View CV"><i class="fa fa-file"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Objective Section -->
-  <section class="content-section card-to-animate" id="objective">
-    <div class="container card">
-      <h3>Objective</h3>
-      <p>
-        As a computer engineer, I am looking for opportunities to improve and reach my true potential.
-        I strongly believe in activating my potential in a real work environment with mentoring opportunities.
-      </p>
-    </div>
-  </section>
-
-  <!-- Work Experience Section -->
-  <section class="content-section card-to-animate" id="experience">
-    <div class="container card">
-      <h3>Work Experience</h3>
-      <div class="job">
-        <h4>HOMETECH R&amp;D Department — Computer Engineer</h4>
-        <p><em>Küçükçekmece/İstanbul — June 2024/Present</em></p>
-        <ul>
-          <li>Developed an Android application for the National Roaming Project.</li>
-          <li>Created image processing modules using Python for an ophthalmology project.</li>
-        </ul>
-      </div>
-      <div class="job">
-        <h4>Megaprint — Document Translator</h4>
-        <p><em>Esenyurt/İstanbul — November 2023/February 2024</em></p>
-        <ul>
-          <li>Translated machine user manuals from English to Turkish, ensuring accuracy and technical clarity.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section class="content-section card-to-animate" id="projects">
-    <div class="container card">
-      <h3>Projects</h3>
-      <ul>
-        <li><strong>Dissertation:</strong> Chest X-Ray AI for pneumonia over web and mobile</li>
-        <li><strong>Router-based Personal Website:</strong> Reverse proxy on OpenWRT, GCP, DuckDNS, Tailscale</li>
-        <li><strong>Custom Image Processing Tool:</strong> Luminance manipulation</li>
-        <li><strong>Ticket Selling Automation</strong></li>
-        <li><strong>PC Game:</strong> Hill Climb clone</li>
-        <li><strong>Keylogger:</strong> Sends logs via email</li>
-        <li><strong>Mobile Math App:</strong> Teaching math to children</li>
-        <li><strong>Textile Automation</strong></li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section class="content-section card-to-animate" id="skills">
-    <div class="container card">
-      <h3>Skills</h3>
-      <ul>
-        <li><strong>Kotlin (Android Studio)</strong></li>
-        <li><strong>Java (Android Studio)</strong></li>
-        <li><strong>Python:</strong> Image Processing, GUI Creation, Customized Tools</li>
-        <li><strong>Networking &amp; Deployment:</strong> Self-Hosting, GCP VPS, Tailscale, DDNS, OpenWRT</li>
-        <li><strong>Languages:</strong> English (C1 level)</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Education Section -->
-  <section class="content-section card-to-animate" id="education">
-    <div class="container card">
-      <h3>Education</h3>
-      <p><strong>Namık Kemal University</strong> — Computer Engineering (2016–2021)</p>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="content-section card-to-animate" id="contact">
-    <div class="container card contact-wrapper">
-      <div class="contact-info">
-        <h3>Contact</h3>
-        <!-- Reordered contact info -->
-        <p>
-          <i class="fab fa-github"></i> <strong>GitHub:</strong>
-          <a href="https://github.com/kaanaldemir" target="_blank">github.com/kaanaldemir</a>
-        </p>
-        <p>
-          <i class="fab fa-linkedin"></i> <strong>LinkedIn:</strong>
-          <a href="https://linkedin.com/in/kaan-aldemir" target="_blank">linkedin.com/in/kaan-aldemir</a>
-        </p>
-        <p>
-          <i class="fa fa-envelope"></i> <strong>Email:</strong>
-          <a href="mailto:kaanaldemir1608@gmail.com">kaanaldemir1608@gmail.com</a>
-        </p>
-        <p>
-          <i class="fab fa-instagram"></i> <strong>Instagram:</strong>
-          <a href="https://www.instagram.com/kaanaldemir" target="_blank">instagram.com/kaanaldemir</a>
-        </p>
-        <p>
-          <i class="fa fa-phone"></i> <strong>Tel:</strong>
-          <a href="tel:+905347806600">+90 534 780 6600</a>
-        </p>
-        <p>
-          <i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong>
-          <a href="https://wa.me/905347806600">+90 534 780 6600</a>
-        </p>
-        <p>
-          <i class="fa fa-file"></i> <strong>View CV:</strong>
-          <a href="Kaan Aldemir - CV.pdf" target="_blank" rel="noopener noreferrer">Kaan Aldemir - CV.pdf</a>
-        </p>
-      </div>
-      <div class="contact-form">
-        <h3>Send a Message</h3>
-        <div class="form-row">
-          <input type="text" id="msgName" placeholder="John Doe" maxlength="50" />
-          <div class="email-group">
-            <input type="text" id="msgEmail1" placeholder="john" maxlength="50" />
-            <span>@</span>
-            <input type="text" id="msgEmail2" placeholder="doe.com" maxlength="50" />
-          </div>
-          <div class="tel-group">
-            <input type="text" id="msgCountryCode" value="+90" maxlength="5" pattern="^\+?[0-9]{1,5}$" />
-            <input type="text" id="msgTel" placeholder="5555555555" maxlength="10" pattern="[0-9]{10}" />
-          </div>
-        </div>
-        <div class="form-row">
-          <textarea id="msgText" placeholder="Let's hear it!" maxlength="500"></textarea>
-        </div>
-        <button id="sendButton" disabled>Send Message</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- About This Site Section -->
-  <section class="content-section card-to-animate" id="about-site">
-    <div class="container card note">
-      <h3>About This Site</h3>
-      <p>
-        This website is intentionally designed to be minimal and lightweight. It is hosted on an OpenWRT router with limited resources,
-        demonstrating resourcefulness. By leveraging Tailscale and GCP, this site remains accessible,
-        secure, and efficient.
-      </p>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Kaan Aldemir. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <!-- Toast Container -->
-  <div id="toast-container"></div>
-
-  <!-- Day/Night Toggle Button -->
-  <button id="themeToggleBtn" class="theme-toggle-btn"><i class="fa fa-moon"></i></button>
-
-  <!-- Scroll Buttons Container -->
-  <div class="scroll-buttons-container">
-    <button id="upButton" class="scroll-button"><i class="fa fa-arrow-up"></i></button>
-    <button id="downButton" class="scroll-button"><i class="fa fa-arrow-down"></i></button>
-  </div>
-
-  <!-- External JS -->
-  <script src="script.js"></script>
-
-  <!-- Inline JavaScript for Send Message Enhancements & Toasts -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      // Auto-advance email input if "@" is typed.
-      var email1 = document.getElementById("msgEmail1");
-      var email2 = document.getElementById("msgEmail2");
-      email1.addEventListener("input", function() {
-        if (this.value.indexOf("@") !== -1) {
-          this.value = this.value.replace("@", "");
-          email2.focus();
-        }
-      });
-
-      // Allow only digits in the telephone input.
-      var telInput = document.getElementById("msgTel");
-      telInput.addEventListener("input", function() {
-        this.value = this.value.replace(/\D/g, "");
-      });
-
-      // For country code, allow only digits and a leading plus.
-      var countryInput = document.getElementById("msgCountryCode");
-      countryInput.addEventListener("input", function() {
-        this.value = this.value.replace(/[^0-9+]/g, "");
-      });
-
-      // Enable send button if at least one contact field is filled and message is valid.
-      var sendButton = document.getElementById("sendButton");
-      var msgName = document.getElementById("msgName");
-      var msgText = document.getElementById("msgText");
-
-      function checkFields() {
-        var anyContact = msgName.value.trim() !== "" || email1.value.trim() !== "" || email2.value.trim() !== "" || telInput.value.trim() !== "";
-        var messageValid = msgText.value.trim().length >= 10;
-        sendButton.disabled = !(anyContact && messageValid);
-      }
-      [msgName, email1, email2, countryInput, telInput, msgText].forEach(function(field) {
-        field.addEventListener("input", checkFields);
-      });
-
-      // Toast function for custom notifications.
-      function showToast(message, type) {
-        var toast = document.createElement("div");
-        toast.classList.add("toast");
-        toast.classList.add(type === "success" ? "toast-success" : "toast-error");
-        toast.textContent = message;
-        var container = document.getElementById("toast-container");
-        if (!container) {
-          container = document.createElement("div");
-          container.id = "toast-container";
-          document.body.appendChild(container);
-        }
-        container.appendChild(toast);
-        setTimeout(function() {
-          toast.remove();
-        }, 3500);
-      }
-
-      sendButton.addEventListener("click", function(e) {
-        e.preventDefault();
-  
-        // Validate message length.
-        var messageLen = msgText.value.trim().length;
-        if (messageLen < 10) {
-          showToast("Message must be at least 10 characters long.", "error");
-          return;
-        }
-  
-        // Email fields: if both are empty, fill with defaults.
-        if (email1.value.trim() === "" && email2.value.trim() === "") {
-          email1.value = "john";
-          email2.value = "doe.com";
-        } else if (email1.value.trim() === "" || email2.value.trim() === "") {
-          // If only one is empty, show an error.
-          showToast("Both email fields must be filled in.", "error");
-          return;
-        }
-  
-        // For telephone field: if empty, fill with default "5555555555".
-        if (telInput.value.trim() === "") {
-          telInput.value = "5555555555";
-        }
-        // Validate telephone number length.
-        if (telInput.value.trim().length !== 10) {
-          showToast("Telephone number must be 10 digits.", "error");
-          return;
-        }
-  
-        // Fill default for name if empty.
-        if (msgName.value.trim() === "") {
-          msgName.value = "John Doe";
-        }
-  
-        // Ensure country code is set.
-        if (countryInput.value.trim() === "") {
-          countryInput.value = "+90";
-        }
-  
-        // Prepare the data as a JSON object.
-        var formData = {
-          name: msgName.value.trim(),
-          email: email1.value.trim() + "@" + email2.value.trim(),
-          tel: countryInput.value.trim() + telInput.value.trim(),
-          message: msgText.value.trim()
-        };
-
-        // Send the data via fetch as JSON.
-        fetch("/save.php", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            showToast("Message sent!", "success");
-            // Clear the form fields.
-            msgName.value = "";
-            email1.value = "";
-            email2.value = "";
-            countryInput.value = "+90";
-            telInput.value = "";
-            msgText.value = "";
-            sendButton.disabled = true;
-          } else {
-            showToast("" + (data.error || "Unknown error"), "error");
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-          showToast("Could not send message.", "error");
-        });
-      });
-    });
-  </script>
-
-  <!-- Other Inline Scripts: Typewriter, Theme Toggle, Fade-in Animations & Scroll Buttons -->
-  <script>
-    // Typewriter Effect
-    document.addEventListener('DOMContentLoaded', () => {
-      const textElement = document.getElementById('typewriterText');
-      const textString = textElement.textContent.trim();
-      let index = 0;
-      textElement.textContent = '';
-      function typeWriter() {
-        if (index < textString.length) {
-          textElement.textContent += textString.charAt(index);
-          index++;
-          setTimeout(typeWriter, 30);
-        }
-      }
-      typeWriter();
-    });
-
-    // Device Theme Preference & Theme Toggle
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.body.classList.add('dark-mode');
-      themeToggleBtn.innerHTML = '<i class="fa fa-sun"></i>';
-    } else {
-      themeToggleBtn.innerHTML = '<i class="fa fa-moon"></i>';
-    }
-    themeToggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      themeToggleBtn.innerHTML = document.body.classList.contains('dark-mode') ? '<i class="fa fa-sun"></i>' : '<i class="fa fa-moon"></i>';
-    });
-
-    // Fade-In Animation for Cards (Intersection Observer)
-    const cardsToAnimate = document.querySelectorAll('.card-to-animate');
-    const observerOptions = { threshold: 0.2 };
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-    cardsToAnimate.forEach(card => observer.observe(card));
-
-    // Scroll Buttons Functionality with Double-Click Skip
-    const sections = Array.from(document.querySelectorAll('section.content-section'));
-    const upButton = document.getElementById('upButton');
-    const downButton = document.getElementById('downButton');
-    let upClickCount = 0;
-    let downClickCount = 0;
-    const quickClickThreshold = 250;
-    let upTimeout, downTimeout;
-
-    function getCurrentSectionIndex() {
-      let scrollPos = window.scrollY;
-      let index = -1;
-      sections.forEach((section, i) => {
-        if (scrollPos >= section.offsetTop - 50) {
-          index = i;
-        }
-      });
-      return index;
-    }
-
-    function scrollToSection(index) {
-      if (index >= 0 && index < sections.length) {
-        sections[index].scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    downButton.addEventListener('click', () => {
-      downClickCount++;
-      clearTimeout(downTimeout);
-      downTimeout = setTimeout(() => { downClickCount = 0; }, quickClickThreshold);
-      if (downClickCount >= 2) {
-        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-        downClickCount = 0;
-        return;
-      }
-      let currentIndex = getCurrentSectionIndex();
-      let nextIndex = currentIndex + 1;
-      if (nextIndex >= sections.length) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        scrollToSection(nextIndex);
-      }
-    });
-
-    upButton.addEventListener('click', () => {
-      upClickCount++;
-      clearTimeout(upTimeout);
-      upTimeout = setTimeout(() => { upClickCount = 0; }, quickClickThreshold);
-      if (upClickCount >= 2) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        upClickCount = 0;
-        return;
-      }
-      let currentIndex = getCurrentSectionIndex();
-      if (currentIndex <= 0) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        scrollToSection(currentIndex - 1);
-      }
-    });
-  </script>
-  <script>
-    window.addEventListener('load', () => {
-      if (window.location.hash) {
-        const targetId = window.location.hash;
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          // Reset scroll position to the top immediately
-          window.scrollTo(0, 0);
-          // After a short delay, smoothly scroll to the element
-          setTimeout(() => {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
-        }
-      }
-    });
-  </script>  
-  
+</script>
 </body>
 </html>

@@ -1,2 +1,7 @@
 messages/messages.txt
 messages/locked_messages.txt
+/old
+/node_modules
+package-lock.json
+package.json
+npx

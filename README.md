@@ -1,2 +1,2 @@
 # kaanaldemir.com
- My self-hosted personel web site.
+My self-hosted personel web site.
