@@ -5,3 +5,5 @@ messages/locked_messages.txt
 package-lock.json
 package.json
 npx
+router_proxy
+router_proxy copy

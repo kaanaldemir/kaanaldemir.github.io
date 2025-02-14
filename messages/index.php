@@ -46,6 +46,8 @@ if (file_exists($lockedFile)) {
   <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
   <link href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="../web/16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../web/32.png">
   <style>
     .container {max-width: 1360px;margin: 0 auto;min-width: 900px;}
     body {min-width: 900px;background: #343a40;color: #fff;}
