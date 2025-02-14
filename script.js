@@ -194,58 +194,6 @@ showToast("Could not send message.","error");
 });
 });
 });
-document.addEventListener("DOMContentLoaded", function(){
-var email1=document.getElementById("msgEmail1"),email2=document.getElementById("msgEmail2");
-email1.addEventListener("input",function(){
-if(this.value.indexOf("@")!==-1){this.value=this.value.replace("@","");email2.focus();}
-});
-var telInput=document.getElementById("msgTel");
-telInput.addEventListener("input",function(){this.value=this.value.replace(/\D/g,"");});
-var countryInput=document.getElementById("msgCountryCode");
-countryInput.addEventListener("input",function(){this.value=this.value.replace(/[^0-9+]/g,"");});
-var sendButton=document.getElementById("sendButton"),msgName=document.getElementById("msgName"),msgText=document.getElementById("msgText");
-function checkFields(){
-var anyContact=msgName.value.trim()!==""||email1.value.trim()!==""||email2.value.trim()!==""||telInput.value.trim()!=="";
-var messageValid=msgText.value.trim().length>=10;
-sendButton.disabled=!(anyContact&&messageValid);
-}
-[msgName,email1,email2,countryInput,telInput,msgText].forEach(function(field){field.addEventListener("input",checkFields);});
-function showToast(message,type){
-var toast=document.createElement("div");
-toast.classList.add("toast");
-toast.classList.add(type==="success"?"toast-success":"toast-error");
-toast.textContent=message;
-var container=document.getElementById("toast-container");
-if(!container){container=document.createElement("div");container.id="toast-container";document.body.appendChild(container);}
-container.appendChild(toast);
-setTimeout(function(){toast.remove();},3500);
-}
-sendButton.addEventListener("click",function(e){
-e.preventDefault();
-var messageLen=msgText.value.trim().length;
-if(messageLen<10){showToast("Message must be at least 10 characters long.","error");return;}
-if(email1.value.trim()===""&&email2.value.trim()===""){email1.value="john";email2.value="doe.com";} else if(email1.value.trim()===""||email2.value.trim()===""){showToast("Both email fields must be filled in.","error");return;}
-if(telInput.value.trim()===""){telInput.value="5555555555";}
-if(telInput.value.trim().length!==10){showToast("Telephone number must be 10 digits.","error");return;}
-if(msgName.value.trim()===""){msgName.value="John Doe";}
-if(countryInput.value.trim()===""){countryInput.value="+90";}
-var formData={name: msgName.value.trim(),email: email1.value.trim()+"@"+email2.value.trim(),tel: countryInput.value.trim()+telInput.value.trim(),message: msgText.value.trim()};
-fetch("/relay.php",{
-method:"POST",
-headers:{"Content-Type": "application/json"},
-body: JSON.stringify(formData)
-})
-.then(response=>response.json())
-.then(data=>{
-if(data.success){showToast("Message sent!","success");msgName.value="";email1.value="";email2.value="";countryInput.value="+90";telInput.value="";msgText.value="";sendButton.disabled=true;}
-else{showToast(""+(data.error||"Unknown error"),"error");}
-})
-.catch(error=>{
-console.error("Error:",error);
-showToast("Could not send message.","error");
-});
-});
-});
 window.addEventListener('load',()=>{
 if(window.location.hash){
 const targetId=window.location.hash;
