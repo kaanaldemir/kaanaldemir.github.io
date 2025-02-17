@@ -692,3 +692,10 @@ body.menu-open #menu-overlay {
     max-width: 45%;
   }
 }
+
+@media (max-width: 1080px) {
+  .nav-links a:hover {
+    background-color: var(--hover-color);
+    color: var(--resume-text); /* Set a contrasting text color */
+  }
+}

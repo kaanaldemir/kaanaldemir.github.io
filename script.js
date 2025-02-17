@@ -303,3 +303,15 @@ window.addEventListener('resize', () => {
     document.getElementById('hamburger-menu').classList.remove('active');
   }
 });
+email1.addEventListener("input", function () {
+  if (this.value.includes("@")) {
+    const parts = this.value.split("@");
+    // Use the first part for email1 and move the remainder to email2
+    this.value = parts[0];
+    // Only fill email2 if it’s empty so that it doesn’t override any manual edits
+    if (!email2.value) {
+      email2.value = parts.slice(1).join("@");
+    }
+    email2.focus();
+  }
+});
