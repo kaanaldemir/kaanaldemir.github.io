@@ -1,0 +1,2 @@
+{"id":"67ab293a9d799","time":"11-02-2025 13:40:58","name":"Jane Doe","email":"john@doe.com","tel":"+905555555555","message":"Hello World!"}
+{"id":"67ab286d4051c","time":"11-02-2025 13:37:33","name":"John Doe","email":"john@doe.com","tel":"+905555555555","message":"Hello World!"}
