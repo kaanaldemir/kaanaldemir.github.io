@@ -7,6 +7,5 @@ package.json
 npx
 router_proxy
 router_proxy copy
-messages/locked_messages.txt
-messages/locked_messages.txt
-messages/locked_messages.txt
+portfolio/data/content.json.bak
+portfolio/data/presets.json
